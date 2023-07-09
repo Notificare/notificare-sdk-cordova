@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Security-Policy" content="default-src 'unsafe-inline' 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src 'self'; img-src * data: content:;" />
     <meta name="format-detection" content="telephone=no" />
     <meta name="msapplication-tap-highlight" content="no" />
-    <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
     <link rel="stylesheet" href="../../css/home.css" />
     <link rel="shortcut icon" href="../../res/favicon.ico" />
     <title>Sample</title>
@@ -13,60 +13,60 @@
 <body>
 <div class="app">
     <div class="event received">
-        <button onclick="statusNotificare()">Notificare Status</button>
-        <button onclick="launchNotificare()">Launch Notificare</button>
-        <button onclick="unlaunchNotificare()">Unlaunch Notificare</button>
-
-        <h1>Geo</h1>
-        <button onclick="requestLocationPermissions()">Request Location & Bluetooth Permission</button>
-        <button onclick="checkLocationPermissionsStatus()">Check Permissions Status</button>
-        <button onclick="enableLocationUpdates()">Enable Location Updates</button>
-        <button onclick="disableLocationUpdates()">Disable Location Updates</button>
-        <button onclick="rangingBeacons()">Ranging Beacons</button>
-
-        <h1>Push</h1>
-        <button onclick="requestNotificationsPermission()">Request Notifications Permission</button>
-        <button onclick="checkNotificationsPermissionsStatus()">Check Notifications Permission Status</button>
-        <button onclick="enableRemoteNotifications()">Enable Remote Notifications</button>
-        <button onclick="disbaleRemoteNotifications()">Disable Remote Notifications</button>
-        <button onclick="openInbox()">Open Inbox</button>
-        <button onclick="fetchTags()">Fetch Tags</button>
-        <button onclick="addTags()">Add Tags</button>
-        <button onclick="removeTags()">Remove Tags</button>
-        <button onclick="clearTags()">Clear Tags</button>
-        <button onclick="fetchDoNotDisturb()">Fetch DND</button>
-        <button onclick="updateDoNotDisturb()">Update DND</button>
-        <button onclick="clearDoNotDisturb()">Clear DND</button>
-        <button onclick="fetchUserData()">Fetch User Data</button>
-        <button onclick="updateUserData()">Update User Data</button>
-        <button onclick="fetchPreferredLanguage()">Get Preferred Language</button>
-        <button onclick="updatePreferredLanguage()">Update Preferred Language 'NL'</button>
-        <button onclick="clearPreferredLanguage()">Clear Preferred Language</button>
-        <button onclick="fetchNotification()">Fetch Notification</button>
-
-        <h1>Assets</h1>
-        <button onclick="fetchAssets()">Fetch Assets</button>
-
-        <h1>Scannables</h1>
-        <button onclick="startScannableSession()">Start Scannable Session</button>
-
-        <h1>Loyalty</h1>
-        <button onclick="fetchPass()">Fetch Pass</button>
-
-        <h1>Monetize</h1>
-        <button onclick="refresh()">Refresh</button>
-        <button onclick="getProducts()">Get Products</button>
-        <button onclick="getPurchases()">Get Purchases</button>
-
-        <h1>In-app messaging</h1>
-        <button onclick="checkSuppressedState()">Suppress Messages State</button>
-        <button onclick="suppressMessages()">Suppress Messages</button>
-        <button onclick="unSuppressMessages()">Un-suppress Messages</button>
-        <button onclick="unSuppressMessagesAndEvaluateContext()">Un-suppress and Evaluate Context</button>
+        <div w3-include-html="views/launch-flow-card/launch-flow-card-view.html"></div>
+        <div id="homeContainer"></div>
     </div>
+
+    <div id="toast" class="toast"></div>
 </div>
+<script>
+    function addHTML() {
+        var el, i, domEl, fileName, xmlHttp;
+
+        /*Iterate all DOM*/
+        el = document.getElementsByTagName("*");
+        for (i = 0; i < el.length; i++) {
+            domEl = el[i];
+
+            /*find the element having w3-include-html attribute*/
+            fileName = domEl.getAttribute("w3-include-html");
+            if (fileName) {
+                /*http request with attribute value as file name*/
+                xmlHttp = new XMLHttpRequest();
+                xmlHttp.onreadystatechange = function () {
+                    if (this.readyState == 4) {
+                        if (this.status == 200) {
+                            domEl.innerHTML = this.responseText;
+
+                            /* Remove the attribute and invoke the function again*/
+                            domEl.removeAttribute("w3-include-html");
+                            addHTML();
+
+                            /* Load the corresponding JavaScript file */
+                            var script = document.createElement("script");
+                            script.src = fileName.replace("-view.html", ".js");
+                            document.head.appendChild(script);
+                        }
+                        if (this.status == 404) {
+                            domEl.innerHTML = "Page not found.";
+                        }
+                    }
+                };
+                xmlHttp.open("GET", fileName, true);
+                xmlHttp.send();
+
+                /*function ends*/
+                return;
+            }
+        }
+    }
+
+    addHTML();
+</script>
 <script src="../../cordova.js"></script>
-<script src="../../events/listeners.js"></script>
+<script src="../../toast/toast.js"></script>
+<script src="../../events/event-monitor.js"></script>
 <script src="home.js"></script>
+<script src="views/launch-flow-card/launch-flow-card.js"></script>
 </body>
 </html>

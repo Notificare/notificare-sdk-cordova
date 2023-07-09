@@ -6,6 +6,7 @@ async function onDeviceReady() {
 
   try {
     let initItems = await NotificareInbox.getItems();
+
     if (initItems.length > 0) {
       const nodes = initItems.map((item, index) => createInboxItem(item, index));
       document.getElementById('inboxList').replaceChildren(...nodes);
@@ -13,6 +14,7 @@ async function onDeviceReady() {
       document.getElementById('inboxList').innerHTML = noDataView;
     }
   } catch (e) {
+    console.log('=== Error getting inbox items ===');
     console.log(e);
   }
 
@@ -28,29 +30,41 @@ async function onDeviceReady() {
 
 async function open(item) {
   try {
-    console.log(`---> Open Inbox Item CLicked <---`);
     const notification = await NotificareInbox.open(item);
     await NotificarePushUI.presentNotification(notification);
   } catch (e) {
+    console.log('=== Error opening inbox item ===');
     console.log(e);
+
+    enqueueToast('Error opening inbox item.', 'error');
   }
 }
 
 async function markAsRead(item) {
   try {
-    console.log(`---> Mark as Read Inbox Item CLicked <---`);
     await NotificareInbox.markAsRead(item);
+
+    console.log('=== Success marked as read inbox item ===');
+    enqueueToast('Success marked as read inbox item.', 'success');
   } catch (e) {
+    console.log('=== Error mark as read inbox item ===');
     console.log(e);
+
+    enqueueToast('Error mark as read inbox item.', 'error');
   }
 }
 
 async function remove(item) {
   try {
-    console.log(`---> Remove Inbox Item CLicked <---`);
     await NotificareInbox.remove(item);
+
+    console.log('=== Successfully removed inbox item ===');
+    enqueueToast('Successfully removed inbox item.', 'success');
   } catch (e) {
+    console.log('=== Error removing inbox item ===');
     console.log(e);
+
+    enqueueToast('Error removing inbox item.', 'error');
   }
 }
 
@@ -109,7 +123,7 @@ function createInboxItem(item, index) {
   </div>
 
   <div class="details-container">
-      <div class="time">${item.time}</div>
+    <div class="time">${item.time}</div>
     <span class="title">${item.notification.title ?? '---'}</span>
     <span class="message">${item.notification.message}</span>
   </div>
