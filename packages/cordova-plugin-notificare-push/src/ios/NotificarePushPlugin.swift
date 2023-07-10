@@ -209,7 +209,7 @@ class NotificarePushPlugin : CDVPlugin {
 
             UNUserNotificationCenter.current().requestAuthorization(options: authorizationOptions) { (granted, error) in
                 if error == nil {
-                    let result = CDVPluginResult(status: .ok, messageAs: granted ? ["result": PermissionStatus.granted.rawValue] : ["result": PermissionStatus.denied.rawValue])
+                    let result = CDVPluginResult(status: .ok, messageAs: granted ? PermissionStatus.granted.rawValue : PermissionStatus.denied.rawValue)
                     self.commandDelegate!.send(result, callbackId: command.callbackId)
                     return
                 }
