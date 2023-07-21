@@ -10,6 +10,17 @@ function setupListeners() {
     console.log(JSON.stringify(application));
   });
 
+  Notificare.onUnlaunched((application) => {
+    console.log('=======================');
+    console.log('= NOTIFICARE UNLAUNCHED =');
+    console.log('=======================');
+    console.log(JSON.stringify(application));
+  });
+
+  Notificare.onUrlOpened((url) => {
+    console.log(`---> On URL opened = ${url}`);
+  });
+
   Notificare.onDeviceRegistered((device) => {
     console.log(`---> Device registered: ${JSON.stringify(device)}`);
   });

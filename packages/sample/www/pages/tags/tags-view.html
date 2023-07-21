@@ -9,26 +9,38 @@
     <meta name="format-detection" content="telephone=no"/>
     <meta name="msapplication-tap-highlight" content="no"/>
     <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover"/>
-    <link rel="stylesheet" href="../../css/inbox.css"/>
+    <link rel="stylesheet" href="../../css/home.css"/>
     <link rel="shortcut icon" href="../../res/favicon.ico"/>
-    <title>Inbox</title>
+    <title>Tags</title>
 </head>
 <body>
 <div class="app">
-    <div id="inboxList"></div>
-    <div class="fab-container">
-        <div onclick="handleBackButton()" class="back-button">
-            <div class="arrow arrow-left"></div>
-        </div>
+    <div class="section-title-row">
+        <span class="section-title">Device Tags</span>
     </div>
-    <div class="dropup">
-        <div id="dropUpMenu" class="dropup-content">
-            <a id="openItem">Open</a>
 
-            <a id="markAsReadItem">Mark as Read</a>
+    <div id="deviceTags" class="card"></div>
 
-            <a id="removeItem">Remove</a>
-        </div>
+    <div class="section-title-row"></div>
+
+    <div class="card">
+        <button onclick="{fetchTags()}">Fetch Tags</button>
+
+        <div class="divider-horizontal"></div>
+
+        <button onclick="{addTags()}">Add Tags</button>
+
+        <div class="divider-horizontal"></div>
+
+        <button onclick="{removeTag()}">Remove Tag</button>
+
+        <div class="divider-horizontal"></div>
+
+        <button onclick="{clearTags()}">Clear Tags</button>
+    </div>
+
+    <div onclick="handleBackButton()" class="back-button">
+        <div class="arrow arrow-left"></div>
     </div>
 
     <div id="toast" class="toast"></div>
@@ -36,6 +48,6 @@
 <script src="../../cordova.js"></script>
 <script src="../../toast/toast.js"></script>
 <script src="../../events/event-monitor.js"></script>
-<script src="inbox.js"></script>
+<script src="tags.js"></script>
 </body>
 </html>

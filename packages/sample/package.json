@@ -21,6 +21,7 @@
   "devDependencies": {
     "cordova-android": "^10.1.2",
     "cordova-ios": "^6.2.0",
+    "cordova-plugin-dialogs": "^2.0.2",
     "cordova-plugin-notificare": "3.5.4",
     "cordova-plugin-notificare-assets": "3.5.4",
     "cordova-plugin-notificare-geo": "3.5.4",
@@ -48,7 +49,8 @@
       "cordova-plugin-notificare-push": {},
       "cordova-plugin-notificare-push-ui": {},
       "cordova-plugin-notificare-scannables": {},
-      "cordova-plugin-notificare-user-inbox": {}
+      "cordova-plugin-notificare-user-inbox": {},
+      "cordova-plugin-dialogs": {}
     },
     "platforms": [
       "ios",

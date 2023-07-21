@@ -6,13 +6,32 @@
     <meta name="format-detection" content="telephone=no" />
     <meta name="msapplication-tap-highlight" content="no" />
     <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover" />
-    <link rel="stylesheet" href="../../css/beacons.css" />
+    <link rel="stylesheet" href="../../css/home.css" />
+    <link rel="stylesheet" href="../../css/assets.css" />
     <link rel="shortcut icon" href="../../res/favicon.ico" />
-    <title>Beacons</title>
+    <title>Assets</title>
 </head>
 <body>
 <div class="app">
-    <div id="beaconsList"></div>
+    <div class="section-title-row">
+        <span class="section-title">Search Assets</span>
+    </div>
+
+    <div class="card">
+        <div class="data-row">
+            <div class="asset_form_group">
+                <input type="text" class="asset_form_field" placeholder="Asset Group" name="assetsGroupName" id="assetsGroupName" oninput="handleAssetGroupInput(this)" />
+
+                <label for="assetsGroupName"></label>
+            </div>
+        </div>
+
+        <div class="divider-horizontal"></div>
+
+        <button id="assetsSearchButton" onclick="{fetchAssets()}" disabled>Search</button>
+    </div>
+
+    <div id="assetsData"></div>
 
     <div onclick="handleBackButton()" class="back-button">
         <div class="arrow arrow-left"></div>
@@ -23,6 +42,6 @@
 <script src="../../cordova.js"></script>
 <script src="../../toast/toast.js"></script>
 <script src="../../events/event-monitor.js"></script>
-<script src="beacons.js"></script>
+<script src="assets.js"></script>
 </body>
 </html>

@@ -9,33 +9,30 @@
     <meta name="format-detection" content="telephone=no"/>
     <meta name="msapplication-tap-highlight" content="no"/>
     <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover"/>
-    <link rel="stylesheet" href="../../css/inbox.css"/>
+    <link rel="stylesheet" href="../../css/home.css"/>
     <link rel="shortcut icon" href="../../res/favicon.ico"/>
-    <title>Inbox</title>
+    <title>Monetize</title>
 </head>
 <body>
 <div class="app">
-    <div id="inboxList"></div>
-    <div class="fab-container">
-        <div onclick="handleBackButton()" class="back-button">
-            <div class="arrow arrow-left"></div>
-        </div>
-    </div>
-    <div class="dropup">
-        <div id="dropUpMenu" class="dropup-content">
-            <a id="openItem">Open</a>
-
-            <a id="markAsReadItem">Mark as Read</a>
-
-            <a id="removeItem">Remove</a>
-        </div>
+    <div class="section-title-row">
+        <span class="section-title">Monetize</span>
     </div>
 
-    <div id="toast" class="toast"></div>
+    <div class="card">
+        <button onclick="{openProducts()}">Products</button>
+
+        <div class="divider-horizontal"></div>
+
+        <button onclick="{openPurchases()}">Purchases</button>
+    </div>
+
+    <div onclick="handleBackButton()" class="back-button">
+        <div class="arrow arrow-left"></div>
+    </div>
 </div>
 <script src="../../cordova.js"></script>
-<script src="../../toast/toast.js"></script>
 <script src="../../events/event-monitor.js"></script>
-<script src="inbox.js"></script>
+<script src="monetize.js"></script>
 </body>
 </html>

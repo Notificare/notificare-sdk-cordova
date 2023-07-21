@@ -9,26 +9,26 @@
     <meta name="format-detection" content="telephone=no"/>
     <meta name="msapplication-tap-highlight" content="no"/>
     <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover"/>
-    <link rel="stylesheet" href="../../css/inbox.css"/>
+    <link rel="stylesheet" href="../../css/home.css"/>
     <link rel="shortcut icon" href="../../res/favicon.ico"/>
-    <title>Inbox</title>
+    <title>Scannables</title>
 </head>
 <body>
 <div class="app">
-    <div id="inboxList"></div>
-    <div class="fab-container">
-        <div onclick="handleBackButton()" class="back-button">
-            <div class="arrow arrow-left"></div>
-        </div>
+    <div class="section-title-row">
+        <span class="section-title">Scannables</span>
     </div>
-    <div class="dropup">
-        <div id="dropUpMenu" class="dropup-content">
-            <a id="openItem">Open</a>
 
-            <a id="markAsReadItem">Mark as Read</a>
+    <div class="card">
+        <button onclick="{startQrCodeScannableSession()}">QR Code Scannable Session</button>
 
-            <a id="removeItem">Remove</a>
-        </div>
+        <div class="divider-horizontal"></div>
+
+        <button id="nfcButton" onclick="{startNfcScannableSession()}" disabled>NFC Scannable Session</button>
+    </div>
+
+    <div onclick="handleBackButton()" class="back-button">
+        <div class="arrow arrow-left"></div>
     </div>
 
     <div id="toast" class="toast"></div>
@@ -36,6 +36,6 @@
 <script src="../../cordova.js"></script>
 <script src="../../toast/toast.js"></script>
 <script src="../../events/event-monitor.js"></script>
-<script src="inbox.js"></script>
+<script src="scannables.js"></script>
 </body>
 </html>

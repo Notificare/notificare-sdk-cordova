@@ -6,13 +6,23 @@
     <meta name="format-detection" content="telephone=no" />
     <meta name="msapplication-tap-highlight" content="no" />
     <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover" />
-    <link rel="stylesheet" href="../../css/beacons.css" />
+    <link rel="stylesheet" href="../../css/home.css" />
     <link rel="shortcut icon" href="../../res/favicon.ico" />
-    <title>Beacons</title>
+    <title>Custom Events</title>
 </head>
 <body>
 <div class="app">
-    <div id="beaconsList"></div>
+    <div class="section-title-row">
+        <span class="section-title">Register Event</span>
+    </div>
+
+    <div class="card">
+        <button onclick="{registerCustomEvent()}">Event without Data</button>
+
+        <div class="divider-horizontal"></div>
+
+        <button onclick="{registerCustomEventWithData()}">Event with Data</button>
+    </div>
 
     <div onclick="handleBackButton()" class="back-button">
         <div class="arrow arrow-left"></div>
@@ -23,6 +33,6 @@
 <script src="../../cordova.js"></script>
 <script src="../../toast/toast.js"></script>
 <script src="../../events/event-monitor.js"></script>
-<script src="beacons.js"></script>
+<script src="custom-events.js"></script>
 </body>
 </html>
