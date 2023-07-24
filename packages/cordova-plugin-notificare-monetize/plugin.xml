@@ -60,7 +60,7 @@
                 <source url="https://github.com/CocoaPods/Specs.git" />
             </config>
             <pods use-frameworks="true">
-                <pod name="Notificare/NotificareMonetizeKit" spec="3.5.4" />
+                <pod name="Notificare/NotificareMonetizeKit" spec="3.6.0" />
             </pods>
         </podspec>
     </platform>
