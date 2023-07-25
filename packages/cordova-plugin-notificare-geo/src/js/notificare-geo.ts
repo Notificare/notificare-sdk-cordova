@@ -19,6 +19,18 @@ export class NotificareGeo {
     });
   }
 
+  public static async getMonitoredRegions(): Promise<NotificareRegion[]> {
+    return new Promise<NotificareRegion[]>((resolve, reject) => {
+      cordova.exec(resolve, reject, 'NotificareGeo', 'getMonitoredRegions', []);
+    });
+  }
+
+  public static async getEnteredRegions(): Promise<NotificareRegion[]> {
+    return new Promise<NotificareRegion[]>((resolve, reject) => {
+      cordova.exec(resolve, reject, 'NotificareGeo', 'getEnteredRegions', []);
+    });
+  }
+
   public static async enableLocationUpdates(): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       cordova.exec(resolve, reject, 'NotificareGeo', 'enableLocationUpdates', []);
