@@ -56,6 +56,30 @@ class NotificareGeoPlugin : CDVPlugin {
         self.commandDelegate!.send(result, callbackId: command.callbackId)
     }
 
+    @objc func getMonitoredRegions(_ command: CDVInvokedUrlCommand) {
+        do {
+            let items = try Notificare.shared.geo().monitoredRegions.map { try $0.toJson() }
+
+            let result = CDVPluginResult(status: .ok, messageAs: items)
+            self.commandDelegate!.send(result, callbackId: command.callbackId)
+        } catch {
+            let result = CDVPluginResult(status: .error, messageAs: error.localizedDescription)
+            self.commandDelegate!.send(result, callbackId: command.callbackId)
+        }
+    }
+
+    @objc func getEnteredRegions(_ command: CDVInvokedUrlCommand) {
+        do {
+            let items = try Notificare.shared.geo().enteredRegions.map { try $0.toJson() }
+
+            let result = CDVPluginResult(status: .ok, messageAs: items)
+            self.commandDelegate!.send(result, callbackId: command.callbackId)
+        } catch {
+            let result = CDVPluginResult(status: .error, messageAs: error.localizedDescription)
+            self.commandDelegate!.send(result, callbackId: command.callbackId)
+        }
+    }
+
     @objc func enableLocationUpdates(_ command: CDVInvokedUrlCommand) {
         Notificare.shared.geo().enableLocationUpdates()
 

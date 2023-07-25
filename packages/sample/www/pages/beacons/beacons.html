@@ -13,12 +13,16 @@
 <body>
 <div class="app">
     <div id="beaconsList"></div>
+
     <div onclick="handleBackButton()" class="back-button">
         <div class="arrow arrow-left"></div>
     </div>
+
+    <div id="toast" class="toast"></div>
 </div>
 <script src="../../cordova.js"></script>
-<script src="../../events/listeners.js"></script>
+<script src="../../toast/toast.js"></script>
+<script src="../../events/event-monitor.js"></script>
 <script src="beacons.js"></script>
 </body>
 </html>

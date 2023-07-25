@@ -79,6 +79,8 @@ class NotificareGeoPlugin : CordovaPlugin(), NotificareGeo.Listener {
         when (action) {
             "hasLocationServicesEnabled" -> hasLocationServicesEnabled(args, callback)
             "hasBluetoothEnabled" -> hasBluetoothEnabled(args, callback)
+            "getMonitoredRegions" -> getMonitoredRegions(args, callback)
+            "getEnteredRegions" -> getEnteredRegions(args, callback)
             "enableLocationUpdates" -> enableLocationUpdates(args, callback)
             "disableLocationUpdates" -> disableLocationUpdates(args, callback)
             "checkPermissionStatus" -> checkPermissionStatus(args, callback)
@@ -108,6 +110,28 @@ class NotificareGeoPlugin : CordovaPlugin(), NotificareGeo.Listener {
 
     private fun hasBluetoothEnabled(@Suppress("UNUSED_PARAMETER") args: CordovaArgs, callback: CallbackContext) {
         callback.success(Notificare.geo().hasBluetoothEnabled)
+    }
+
+    private fun getMonitoredRegions(@Suppress("UNUSED_PARAMETER") args: CordovaArgs, callback: CallbackContext) {
+        try {
+            val json = JSONArray()
+            Notificare.geo().monitoredRegions.forEach { json.put(it.toJson()) }
+
+            callback.success(json)
+        } catch (e: Exception) {
+            callback.error(e.message)
+        }
+    }
+
+    private fun getEnteredRegions(@Suppress("UNUSED_PARAMETER") args: CordovaArgs, callback: CallbackContext) {
+        try {
+            val json = JSONArray()
+            Notificare.geo().enteredRegions.forEach { json.put(it.toJson()) }
+
+            callback.success(json)
+        } catch (e: Exception) {
+            callback.error(e.message)
+        }
     }
 
     private fun enableLocationUpdates(@Suppress("UNUSED_PARAMETER") args: CordovaArgs, callback: CallbackContext) {
