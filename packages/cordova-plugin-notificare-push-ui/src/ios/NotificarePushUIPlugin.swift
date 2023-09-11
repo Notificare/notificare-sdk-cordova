@@ -267,7 +267,7 @@ extension NotificarePushUIPlugin: NotificarePushUIDelegate {
         }
     }
 
-    func notificare(_ notificarePushUI: NotificarePushUI, shouldPerformSelectorWithURL url: URL, in action: NotificareNotification.Action, for notification: NotificareNotification) {
+    func notificare(_ notificarePushUI: NotificarePushUI, didReceiveCustomAction url: URL, in action: NotificareNotification.Action, for notification: NotificareNotification) {
         do {
             let payload: [String : Any] = [
                 "notification": try notification.toJson(),
