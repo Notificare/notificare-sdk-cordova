@@ -191,12 +191,14 @@ extension NotificarePushUIPlugin: NotificarePushUIDelegate {
 
     func notificare(_ notificarePushUI: NotificarePushUI, didClickURL url: URL, in notification: NotificareNotification) {
         do {
+            let payload: [String: Any] = [
+                "notification": try notification.toJson(),
+                "url": url.absoluteString,
+            ]
+
             NotificarePushUIPluginEventBroker.dispatchEvent(
                 name: "notification_url_clicked",
-                payload: [
-                    "notification": try notification.toJson(),
-                    "url": url.absoluteString,
-                ]
+                payload: payload
             )
         } catch {
             NotificareLogger.error("Failed to emit the notification_url_clicked event.", error: error)
@@ -265,7 +267,7 @@ extension NotificarePushUIPlugin: NotificarePushUIDelegate {
         }
     }
 
-    func notificare(_ notificarePushUI: NotificarePushUI, shouldPerformSelectorWithURL url: URL, in action: NotificareNotification.Action, for notification: NotificareNotification) {
+    func notificare(_ notificarePushUI: NotificarePushUI, didReceiveCustomAction url: URL, in action: NotificareNotification.Action, for notification: NotificareNotification) {
         do {
             let payload: [String : Any] = [
                 "notification": try notification.toJson(),
