@@ -64,7 +64,7 @@
                 <source url="https://github.com/CocoaPods/Specs.git" />
             </config>
             <pods use-frameworks="true">
-                <pod name="Notificare/NotificareScannablesKit" spec="3.6.1" />
+                <pod name="Notificare/NotificareScannablesKit" spec="3.7.0" />
             </pods>
         </podspec>
     </platform>
