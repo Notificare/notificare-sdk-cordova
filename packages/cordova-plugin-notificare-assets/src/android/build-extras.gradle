@@ -1,6 +1,6 @@
 android {
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = cordovaConfig.KOTLIN_JVM_TARGET ?: '1.8'
         freeCompilerArgs += [
                 '-Xopt-in=re.notifica.InternalNotificareApi',
         ]
@@ -16,7 +16,7 @@ repositories {
 }
 
 dependencies {
-    def notificare_version = '3.6.1'
+    def notificare_version = '3.7.1'
     api "re.notifica:notificare:$notificare_version"
     api "re.notifica:notificare-assets:$notificare_version"
 }
