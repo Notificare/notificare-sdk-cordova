@@ -19,14 +19,6 @@ async function onDeviceReady() {
 
 function setupHomeListeners() {
   Notificare.onReady(async () => {
-    if (await NotificarePush.hasRemoteNotificationsEnabled()) {
-      await NotificarePush.enableRemoteNotifications();
-    }
-
-    if (await NotificareGeo.hasLocationServicesEnabled()) {
-      await NotificareGeo.enableLocationUpdates();
-    }
-
     onNotificareReady();
   });
 
