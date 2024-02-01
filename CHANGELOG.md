@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## Upcoming release
+## 3.7.0
 
 - Prepare compatibility with Cordova 13
 
