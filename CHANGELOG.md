@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## Upcoming release
+
+- Add hook for notification service extension
+
 ## 3.7.0
 
 - Prepare compatibility with Cordova 13
