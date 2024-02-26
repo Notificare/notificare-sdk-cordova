@@ -79,10 +79,12 @@ function updateDevelopmentTeam(proj, extConfigRefs, context, appBundleID) {
   }
 
   extConfigRefs.forEach((ref) => {
-    if (isReleaseReference(proj, ref)) {
-      proj.hash.project.objects['XCBuildConfiguration'][ref].buildSettings['DEVELOPMENT_TEAM'] = release || debug;
-    } else {
-      proj.hash.project.objects['XCBuildConfiguration'][ref].buildSettings['DEVELOPMENT_TEAM'] = debug || release;
+    const isRelease = isReleaseReference(proj, ref);
+
+    if (isRelease && release) {
+      proj.hash.project.objects['XCBuildConfiguration'][ref].buildSettings['DEVELOPMENT_TEAM'] = release;
+    } else if (!isRelease && debug) {
+      proj.hash.project.objects['XCBuildConfiguration'][ref].buildSettings['DEVELOPMENT_TEAM'] = debug;
     }
   });
 }

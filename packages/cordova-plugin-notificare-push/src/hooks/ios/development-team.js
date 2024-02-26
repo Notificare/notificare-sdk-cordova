@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 
 const fs = require('fs');
+const { isReleaseReference } = require('./xcode-project');
 
 function getDevelopmentTeam(context, proj, bundleID) {
   return getTeamFromContext(context) || getTeamFromBuildJson(context) || getTeamFromBuildConfiguration(proj, bundleID);
@@ -13,9 +14,11 @@ function getTeamFromContext(context) {
     return undefined;
   }
 
+  const isRelease = context.opts.options.release;
+
   return {
-    debug: team,
-    release: team,
+    debug: isRelease ? undefined : team,
+    release: isRelease ? team : undefined,
   };
 }
 
@@ -23,7 +26,7 @@ function getTeamFromBuildJson(context) {
   const buildJsonPath = context.opts.options.buildConfig;
 
   if (!buildJsonPath) {
-    return;
+    return undefined;
   }
 
   let debug;
@@ -65,7 +68,7 @@ function getTeamFromBuildConfiguration(proj, bundleID) {
       config[ref].buildSettings.PRODUCT_BUNDLE_IDENTIFIER &&
       config[ref].buildSettings.PRODUCT_BUNDLE_IDENTIFIER === bundleID
     ) {
-      if (config[ref].name && config[ref].name.includes('Release')) {
+      if (isReleaseReference(proj, ref)) {
         release = proj.hash.project.objects['XCBuildConfiguration'][ref].buildSettings['DEVELOPMENT_TEAM'];
       } else {
         debug = proj.hash.project.objects['XCBuildConfiguration'][ref].buildSettings['DEVELOPMENT_TEAM'];
