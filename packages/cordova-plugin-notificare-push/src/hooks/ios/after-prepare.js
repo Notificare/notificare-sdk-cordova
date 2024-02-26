@@ -7,7 +7,7 @@ const { setupServiceExtension } = require('./setup-notification-service-extensio
 module.exports = function (context) {
   const appConfig = utils.getCordovaAppConfig(context);
 
-  if (!utils.isPreferenceOptedIn(appConfig, 'notificare.notificationServiceExtension', 'ios')) {
+  if (!utils.isPreferenceOptedIn(appConfig, 'NotificareNotificationServiceExtensionEnabled', 'ios')) {
     console.log(`Notificare notifications service extension not opted-in, skipping.`);
     return;
   }
