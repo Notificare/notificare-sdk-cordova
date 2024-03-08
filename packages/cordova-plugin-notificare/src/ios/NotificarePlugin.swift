@@ -130,6 +130,29 @@ class NotificarePlugin : CDVPlugin {
         }
     }
 
+    @objc func fetchDynamicLink(_ command: CDVInvokedUrlCommand) {
+        let url = command.argument(at: 0) as! String
+
+        Notificare.shared.fetchDynamicLink(url) { result in
+            switch result {
+            case let .success(dynamicLink):
+                do {
+                    let json = try dynamicLink.toJson()
+
+                    let result = CDVPluginResult(status: .ok, messageAs: json)
+                    self.commandDelegate!.send(result, callbackId: command.callbackId)
+                } catch {
+                    let result = CDVPluginResult(status: .error, messageAs: error.localizedDescription)
+                    self.commandDelegate!.send(result, callbackId: command.callbackId)
+                }
+
+            case let .failure(error):
+                let result = CDVPluginResult(status: .error, messageAs: error.localizedDescription)
+                self.commandDelegate!.send(result, callbackId: command.callbackId)
+            }
+        }
+    }
+
     // MARK: - Notificare Device Module
 
     @objc func getCurrentDevice(_ command: CDVInvokedUrlCommand) {
