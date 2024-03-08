@@ -57,6 +57,8 @@
     </platform>
 
     <platform name="ios">
+        <hook type="after_prepare" src="src/hooks/ios/after-prepare.js"/>
+
         <config-file target="config.xml" parent="/*">
             <feature name="NotificarePush">
                 <param name="ios-package" value="NotificarePushPlugin" />
