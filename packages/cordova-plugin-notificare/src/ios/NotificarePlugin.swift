@@ -153,6 +153,24 @@ class NotificarePlugin : CDVPlugin {
         }
     }
 
+    @objc func canEvaluateDeferredLink(_ command: CDVInvokedUrlCommand) {
+        let result = CDVPluginResult(status: .ok, messageAs: Notificare.shared.canEvaluateDeferredLink)
+        self.commandDelegate!.send(result, callbackId: command.callbackId)
+    }
+
+    @objc func evaluateDeferredLink(_ command: CDVInvokedUrlCommand) {
+        Notificare.shared.evaluateDeferredLink { result in
+            switch result {
+            case let .success(evaluated):
+                let result = CDVPluginResult(status: .ok, messageAs: evaluated)
+                self.commandDelegate!.send(result, callbackId: command.callbackId)
+            case let .failure(error):
+                let result = CDVPluginResult(status: .error, messageAs: error.localizedDescription)
+                self.commandDelegate!.send(result, callbackId: command.callbackId)
+            }
+        }
+    }
+
     // MARK: - Notificare Device Module
 
     @objc func getCurrentDevice(_ command: CDVInvokedUrlCommand) {
