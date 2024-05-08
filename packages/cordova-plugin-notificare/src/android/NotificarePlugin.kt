@@ -46,6 +46,8 @@ class NotificarePlugin : CordovaPlugin() {
             "fetchApplication" -> fetchApplication(args, callback)
             "fetchNotification" -> fetchNotification(args, callback)
             "fetchDynamicLink" -> fetchDynamicLink(args, callback)
+            "canEvaluateDeferredLink" -> canEvaluateDeferredLink(args, callback)
+            "evaluateDeferredLink" -> evaluateDeferredLink(args, callback)
             //
             // Device
             //
@@ -155,6 +157,30 @@ class NotificarePlugin : CordovaPlugin() {
                 } catch (e: Exception) {
                     callback.error(e.message)
                 }
+            }
+
+            override fun onFailure(e: Exception) {
+                callback.error(e.message)
+            }
+        })
+    }
+
+    private fun canEvaluateDeferredLink(@Suppress("UNUSED_PARAMETER") args: CordovaArgs, callback: CallbackContext) {
+        Notificare.canEvaluateDeferredLink(object : NotificareCallback<Boolean> {
+            override fun onSuccess(result: Boolean) {
+                callback.success(result)
+            }
+
+            override fun onFailure(e: Exception) {
+                callback.error(e.message)
+            }
+        })
+    }
+
+    private fun evaluateDeferredLink(@Suppress("UNUSED_PARAMETER") args: CordovaArgs, callback: CallbackContext) {
+        Notificare.evaluateDeferredLink(object : NotificareCallback<Boolean> {
+            override fun onSuccess(result: Boolean) {
+                callback.success(result)
             }
 
             override fun onFailure(e: Exception) {
