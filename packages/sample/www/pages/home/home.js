@@ -20,6 +20,7 @@ async function onDeviceReady() {
 function setupHomeListeners() {
   Notificare.onReady(async () => {
     onNotificareReady();
+    await handleDeferredLink();
   });
 
   Notificare.onUnlaunched(() => onNotificareUnlaunched());
@@ -58,5 +59,19 @@ async function launchNotificare() {
     console.log(e);
 
     enqueueToast('Error launching notificare.', 'error');
+  }
+}
+
+async function handleDeferredLink() {
+  try {
+    if (!(await Notificare.canEvaluateDeferredLink())) {
+      return;
+    }
+
+    const evaluate = await Notificare.evaluateDeferredLink();
+    console.log(`Did evaluate deferred link: ${evaluate}`);
+  } catch (e) {
+    console.log('=== Error evaluating deferred link ===');
+    console.log(JSON.stringify(e));
   }
 }

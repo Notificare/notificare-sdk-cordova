@@ -74,6 +74,18 @@ export class Notificare {
     });
   }
 
+  public static async canEvaluateDeferredLink(): Promise<boolean> {
+    return new Promise<boolean>((resolve, reject) => {
+      cordova.exec(resolve, reject, 'Notificare', 'canEvaluateDeferredLink', []);
+    });
+  }
+
+  public static async evaluateDeferredLink(): Promise<boolean> {
+    return new Promise<boolean>((resolve, reject) => {
+      cordova.exec(resolve, reject, 'Notificare', 'evaluateDeferredLink', []);
+    });
+  }
+
   //
   // Events
   //
