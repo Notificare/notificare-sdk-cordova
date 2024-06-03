@@ -4,6 +4,7 @@ import { EventSubscription } from './events';
 import { NotificareApplication } from './models/notificare-application';
 import { NotificareNotification } from './models/notificare-notification';
 import { NotificareDevice } from './models/notificare-device';
+import { NotificareDynamicLink } from './models/notificare-dynamic-link';
 
 export class Notificare {
   private static readonly deviceModule = new NotificareDeviceModule();
@@ -64,6 +65,24 @@ export class Notificare {
   public static async fetchNotification(id: string): Promise<NotificareNotification> {
     return new Promise<NotificareNotification>((resolve, reject) => {
       cordova.exec(resolve, reject, 'Notificare', 'fetchNotification', [id]);
+    });
+  }
+
+  public static async fetchDynamicLink(url: string): Promise<NotificareDynamicLink> {
+    return new Promise<NotificareDynamicLink>((resolve, reject) => {
+      cordova.exec(resolve, reject, 'Notificare', 'fetchDynamicLink', [url]);
+    });
+  }
+
+  public static async canEvaluateDeferredLink(): Promise<boolean> {
+    return new Promise<boolean>((resolve, reject) => {
+      cordova.exec(resolve, reject, 'Notificare', 'canEvaluateDeferredLink', []);
+    });
+  }
+
+  public static async evaluateDeferredLink(): Promise<boolean> {
+    return new Promise<boolean>((resolve, reject) => {
+      cordova.exec(resolve, reject, 'Notificare', 'evaluateDeferredLink', []);
     });
   }
 

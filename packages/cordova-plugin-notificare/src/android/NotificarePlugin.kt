@@ -1,6 +1,7 @@
 package re.notifica.cordova
 
 import android.content.Intent
+import android.net.Uri
 import org.apache.cordova.CallbackContext
 import org.apache.cordova.CordovaArgs
 import org.apache.cordova.CordovaPlugin
@@ -44,6 +45,9 @@ class NotificarePlugin : CordovaPlugin() {
             "getApplication" -> getApplication(args, callback)
             "fetchApplication" -> fetchApplication(args, callback)
             "fetchNotification" -> fetchNotification(args, callback)
+            "fetchDynamicLink" -> fetchDynamicLink(args, callback)
+            "canEvaluateDeferredLink" -> canEvaluateDeferredLink(args, callback)
+            "evaluateDeferredLink" -> evaluateDeferredLink(args, callback)
             //
             // Device
             //
@@ -134,6 +138,49 @@ class NotificarePlugin : CordovaPlugin() {
                 } catch (e: Exception) {
                     callback.error(e.message)
                 }
+            }
+
+            override fun onFailure(e: Exception) {
+                callback.error(e.message)
+            }
+        })
+    }
+
+    private fun fetchDynamicLink(args: CordovaArgs, callback: CallbackContext) {
+        val url = args.getString(0)
+        val uri = Uri.parse(url)
+
+        Notificare.fetchDynamicLink(uri, object : NotificareCallback<NotificareDynamicLink> {
+            override fun onSuccess(result: NotificareDynamicLink) {
+                try {
+                    callback.success(result.toJson())
+                } catch (e: Exception) {
+                    callback.error(e.message)
+                }
+            }
+
+            override fun onFailure(e: Exception) {
+                callback.error(e.message)
+            }
+        })
+    }
+
+    private fun canEvaluateDeferredLink(@Suppress("UNUSED_PARAMETER") args: CordovaArgs, callback: CallbackContext) {
+        Notificare.canEvaluateDeferredLink(object : NotificareCallback<Boolean> {
+            override fun onSuccess(result: Boolean) {
+                callback.success(result)
+            }
+
+            override fun onFailure(e: Exception) {
+                callback.error(e.message)
+            }
+        })
+    }
+
+    private fun evaluateDeferredLink(@Suppress("UNUSED_PARAMETER") args: CordovaArgs, callback: CallbackContext) {
+        Notificare.evaluateDeferredLink(object : NotificareCallback<Boolean> {
+            override fun onSuccess(result: Boolean) {
+                callback.success(result)
             }
 
             override fun onFailure(e: Exception) {
