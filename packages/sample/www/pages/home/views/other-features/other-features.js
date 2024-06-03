@@ -9,11 +9,6 @@ function openAssets() {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-function openMonetize() {
-  window.location.replace('../monetize/monetize-view.html');
-}
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function openEvents() {
   window.location.replace('../custom-events/custom-events-view.html');
 }
