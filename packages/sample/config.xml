@@ -31,7 +31,6 @@
 
         <resource-file src="notificare-services.json" target="app/notificare-services.json" />
         <resource-file src="google-services.json" target="app/google-services.json" />
-        <resource-file src="agconnect-services.json" target="app/agconnect-services.json" />
 
         <config-file target="AndroidManifest.xml" parent="/manifest/application">
             <meta-data android:name="re.notifica.debug_logging_enabled" android:value="true" />
