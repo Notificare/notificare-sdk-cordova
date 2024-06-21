@@ -155,6 +155,16 @@ class NotificarePushPlugin : CDVPlugin {
         self.commandDelegate!.send(result, callbackId: command.callbackId)
     }
 
+    @objc func getTransport(_ command: CDVInvokedUrlCommand) {
+        let result = CDVPluginResult(status: .ok, messageAs: Notificare.shared.push().transport?.rawValue)
+        self.commandDelegate!.send(result, callbackId: command.callbackId)
+    }
+
+    @objc func getSubscriptionId(_ command: CDVInvokedUrlCommand) {
+        let result = CDVPluginResult(status: .ok, messageAs: Notificare.shared.push().subscriptionId)
+        self.commandDelegate!.send(result, callbackId: command.callbackId)
+    }
+
     @objc func allowedUI(_ command: CDVInvokedUrlCommand) {
         let result = CDVPluginResult(status: .ok, messageAs: Notificare.shared.push().allowedUI)
         self.commandDelegate!.send(result, callbackId: command.callbackId)
@@ -174,10 +184,16 @@ class NotificarePushPlugin : CDVPlugin {
     }
 
     @objc func disableRemoteNotifications(_ command: CDVInvokedUrlCommand) {
-        Notificare.shared.push().disableRemoteNotifications()
-
-        let result = CDVPluginResult(status: .ok)
-        self.commandDelegate!.send(result, callbackId: command.callbackId)
+        Notificare.shared.push().disableRemoteNotifications { result in
+            switch result {
+            case .success:
+                let result = CDVPluginResult(status: .ok)
+                self.commandDelegate!.send(result, callbackId: command.callbackId)
+            case let .failure(error):
+                let result = CDVPluginResult(status: .error, messageAs: error.localizedDescription)
+                self.commandDelegate!.send(result, callbackId: command.callbackId)
+            }
+        }
     }
 
     @objc func checkPermissionStatus(_ command: CDVInvokedUrlCommand) {

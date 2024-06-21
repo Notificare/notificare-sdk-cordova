@@ -3,6 +3,7 @@ import { NotificareNotification, NotificareNotificationAction } from 'cordova-pl
 import { NotificareSystemNotification } from './models/notificare-system-notification';
 import { NotificareNotificationDeliveryMechanism } from './models/notificare-notification-delivery-mechanism';
 import { PushPermissionRationale, PushPermissionStatus } from './permissions';
+import { NotificareTransport } from './models/notificare-transport';
 
 export class NotificarePush {
   public static async setAuthorizationOptions(options: string[]): Promise<void> {
@@ -26,6 +27,18 @@ export class NotificarePush {
   public static async hasRemoteNotificationsEnabled(): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
       cordova.exec(resolve, reject, 'NotificarePush', 'hasRemoteNotificationsEnabled', []);
+    });
+  }
+
+  public static async getTransport(): Promise<NotificareTransport | null> {
+    return new Promise<NotificareTransport | null>((resolve, reject) => {
+      cordova.exec(resolve, reject, 'NotificarePush', 'getTransport', []);
+    });
+  }
+
+  public static async getSubscriptionId(): Promise<string | null> {
+    return new Promise<string | null>((resolve, reject) => {
+      cordova.exec(resolve, reject, 'NotificarePush', 'getSubscriptionId', []);
     });
   }
 

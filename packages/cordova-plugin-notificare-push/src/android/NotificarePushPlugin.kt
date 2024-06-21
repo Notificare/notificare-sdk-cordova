@@ -23,6 +23,7 @@ import org.apache.cordova.PluginResult
 import org.json.JSONArray
 import org.json.JSONObject
 import re.notifica.Notificare
+import re.notifica.NotificareCallback
 import re.notifica.internal.NotificareLogger
 import re.notifica.push.ktx.push
 
@@ -86,6 +87,8 @@ class NotificarePushPlugin : CordovaPlugin() {
             "setCategoryOptions" -> setCategoryOptions(args, callback)
             "setPresentationOptions" -> setPresentationOptions(args, callback)
             "hasRemoteNotificationsEnabled" -> hasRemoteNotificationsEnabled(args, callback)
+            "getTransport" -> getTransport(args, callback)
+            "getSubscriptionId" -> getSubscriptionId(args, callback)
             "allowedUI" -> allowedUI(args, callback)
             "enableRemoteNotifications" -> enableRemoteNotifications(args, callback)
             "disableRemoteNotifications" -> disableRemoteNotifications(args, callback)
@@ -131,18 +134,40 @@ class NotificarePushPlugin : CordovaPlugin() {
         callback.success(Notificare.push().hasRemoteNotificationsEnabled)
     }
 
+    private fun getTransport(@Suppress("UNUSED_PARAMETER") args: CordovaArgs, callback: CallbackContext) {
+        callback.success(Notificare.push().transport?.rawValue)
+    }
+
+    private fun getSubscriptionId(@Suppress("UNUSED_PARAMETER") args: CordovaArgs, callback: CallbackContext) {
+        callback.success(Notificare.push().subscriptionId)
+    }
+
     private fun allowedUI(@Suppress("UNUSED_PARAMETER") args: CordovaArgs, callback: CallbackContext) {
         callback.success(Notificare.push().allowedUI)
     }
 
     private fun enableRemoteNotifications(@Suppress("UNUSED_PARAMETER") args: CordovaArgs, callback: CallbackContext) {
-        Notificare.push().enableRemoteNotifications()
-        callback.void()
+        Notificare.push().enableRemoteNotifications(object : NotificareCallback<Unit> {
+            override fun onSuccess(result: Unit) {
+                callback.void()
+            }
+
+            override fun onFailure(e: Exception) {
+                callback.error(e.message)
+            }
+        })
     }
 
     private fun disableRemoteNotifications(@Suppress("UNUSED_PARAMETER") args: CordovaArgs, callback: CallbackContext) {
-        Notificare.push().disableRemoteNotifications()
-        callback.void()
+        Notificare.push().disableRemoteNotifications(object : NotificareCallback<Unit> {
+            override fun onSuccess(result: Unit) {
+                callback.void()
+            }
+
+            override fun onFailure(e: Exception) {
+                callback.error(e.message)
+            }
+        })
     }
 
     // endregion
