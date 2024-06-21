@@ -57,7 +57,7 @@
                 <source url="https://github.com/CocoaPods/Specs.git" />
             </config>
             <pods use-frameworks="true">
-                <pod name="Notificare/NotificareInboxKit" path="../../../../../../iOS/notificare-sdk-ios/Notificare.local.podspec" />
+                <pod name="Notificare/NotificareInboxKit" spec="4.0.0-canary.1" />
             </pods>
         </podspec>
     </platform>
