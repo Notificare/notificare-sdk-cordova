@@ -53,6 +53,7 @@ class NotificarePlugin : CordovaPlugin() {
             //
             "getCurrentDevice" -> getCurrentDevice(args, callback)
             "register" -> register(args, callback)
+            "updateUser" -> updateUser(args, callback)
             "fetchTags" -> fetchTags(args, callback)
             "addTag" -> addTag(args, callback)
             "addTags" -> addTags(args, callback)
@@ -95,13 +96,27 @@ class NotificarePlugin : CordovaPlugin() {
     }
 
     private fun launch(@Suppress("UNUSED_PARAMETER") args: CordovaArgs, callback: CallbackContext) {
-        Notificare.launch()
-        callback.void()
+        Notificare.launch(object : NotificareCallback<Unit> {
+            override fun onSuccess(result: Unit) {
+                callback.void()
+            }
+
+            override fun onFailure(e: Exception) {
+                callback.error(e.message)
+            }
+        })
     }
 
     private fun unlaunch(@Suppress("UNUSED_PARAMETER") args: CordovaArgs, callback: CallbackContext) {
-        Notificare.unlaunch()
-        callback.void()
+        Notificare.unlaunch(object : NotificareCallback<Unit> {
+            override fun onSuccess(result: Unit) {
+                callback.void()
+            }
+
+            override fun onFailure(e: Exception) {
+                callback.error(e.message)
+            }
+        })
     }
 
     private fun getApplication(@Suppress("UNUSED_PARAMETER") args: CordovaArgs, callback: CallbackContext) {
@@ -206,6 +221,21 @@ class NotificarePlugin : CordovaPlugin() {
         val userName: String? = args.optionalString(1)
 
         Notificare.device().register(userId, userName, object : NotificareCallback<Unit> {
+            override fun onSuccess(result: Unit) {
+                callback.void()
+            }
+
+            override fun onFailure(e: Exception) {
+                callback.error(e.message)
+            }
+        })
+    }
+
+    private fun updateUser(args: CordovaArgs, callback: CallbackContext) {
+        val userId: String? = args.optionalString(0)
+        val userName: String? = args.optionalString(1)
+
+        Notificare.device().updateUser(userId, userName, object : NotificareCallback<Unit> {
             override fun onSuccess(result: Unit) {
                 callback.void()
             }
