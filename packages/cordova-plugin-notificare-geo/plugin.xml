@@ -57,7 +57,7 @@
                 <source url="https://github.com/CocoaPods/Specs.git" />
             </config>
             <pods use-frameworks="true">
-                <pod name="Notificare/NotificareGeoKit" spec="3.9.0" />
+                <pod name="Notificare/NotificareGeoKit" spec="4.0.0-canary.1" />
             </pods>
         </podspec>
     </platform>
