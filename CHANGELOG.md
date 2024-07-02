@@ -4,12 +4,12 @@
 
 #### Native changes
 
-##### iOS
+##### Android
 
 - Add support for the URLResolver notification type
 - Fix anonymous device registration
 
-##### Android
+##### iOS
 
 - Add support for the URLResolver notification type
 - Fix anonymous device registration
