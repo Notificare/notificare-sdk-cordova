@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## Upcoming release
+
+#### Native changes
+
+##### Android
+
+- Add support for the URLResolver notification type
+- Fix anonymous device registration
+
+##### iOS
+
+- Add support for the URLResolver notification type
+- Fix anonymous device registration
+
 ## 3.9.1
 
 - Preload images before showing in-app messages
