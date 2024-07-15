@@ -96,13 +96,6 @@ export class NotificarePush {
 
   // region Events
 
-  /**
-   * @deprecated Listen to onNotificationInfoReceived(notification, deliveryMechanism) instead.
-   */
-  public static onNotificationReceived(callback: (notification: NotificareNotification) => void): EventSubscription {
-    return new EventSubscription('notification_received', callback);
-  }
-
   public static onNotificationInfoReceived(
     callback: (data: {
       notification: NotificareNotification;
