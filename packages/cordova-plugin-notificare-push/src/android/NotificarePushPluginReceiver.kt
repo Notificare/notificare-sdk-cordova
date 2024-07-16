@@ -16,13 +16,6 @@ class NotificarePushPluginReceiver : NotificarePushIntentReceiver() {
             notification: NotificareNotification,
             deliveryMechanism: NotificareNotificationDeliveryMechanism
         ) {
-            // Continue emitting the legacy event to preserve backwards compatibility.
-            try {
-                NotificarePushPluginEventBroker.dispatchEvent("notification_received", notification.toJson())
-            } catch (e: Exception) {
-                NotificareLogger.error("Failed to emit the notification_received event.", e)
-            }
-
             try {
                 val json = JSONObject()
                 json.put("notification", notification.toJson())

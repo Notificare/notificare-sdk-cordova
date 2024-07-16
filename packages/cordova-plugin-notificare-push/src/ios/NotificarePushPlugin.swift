@@ -274,17 +274,6 @@ class NotificarePushPlugin : CDVPlugin {
 }
 
 extension NotificarePushPlugin: NotificarePushDelegate {
-    func notificare(_ notificarePush: NotificarePush, didReceiveNotification notification: NotificareNotification) {
-        do {
-            NotificarePushPluginEventBroker.dispatchEvent(
-                name: "notification_received",
-                payload: try notification.toJson()
-            )
-        } catch {
-            NotificareLogger.error("Failed to emit the notification_received event.", error: error)
-        }
-    }
-
     func notificare(_ notificarePush: NotificarePush, didReceiveNotification notification: NotificareNotification, deliveryMechanism: NotificareNotificationDeliveryMechanism) {
         do {
             let payload: [String: Any] = [
