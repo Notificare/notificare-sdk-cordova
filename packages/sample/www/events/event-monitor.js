@@ -25,8 +25,9 @@ function setupListeners() {
     console.log(`---> Device registered: ${JSON.stringify(device)}`);
   });
 
-  NotificarePush.onNotificationReceived((notification) => {
+  NotificarePush.onNotificationInfoReceived(({ notification, deliveryMechanism }) => {
     console.log(`---> Received notification = ${JSON.stringify(notification)}`);
+    console.log(`---> Delivery mechanism = ${deliveryMechanism}`);
   });
 
   NotificarePush.onUnknownNotificationReceived((notification) => {
@@ -46,6 +47,11 @@ function setupListeners() {
   NotificarePush.onNotificationSettingsChanged((granted) => {
     console.log('=== NOTIFICATION SETTINGS CHANGED ===');
     console.log(JSON.stringify(granted, null, 2));
+  });
+
+  NotificarePush.onSubscriptionIdChanged((subscriptionId) => {
+    console.log('=== SUBSCRIPTION ID CHANGED ===');
+    console.log(`Subscription ID: ${subscriptionId}`);
   });
 
   NotificareInbox.onBadgeUpdated((badge) => {
