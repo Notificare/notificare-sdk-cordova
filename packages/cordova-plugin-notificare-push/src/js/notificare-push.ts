@@ -144,6 +144,10 @@ export class NotificarePush {
     return new EventSubscription('notification_settings_changed', callback);
   }
 
+  public static onSubscriptionIdChanged(callback: (subscriptionId: string | undefined) => void): EventSubscription {
+    return new EventSubscription('subscription_id_changed', callback);
+  }
+
   public static onShouldOpenNotificationSettings(
     callback: (notification: NotificareNotification | null) => void
   ): EventSubscription {

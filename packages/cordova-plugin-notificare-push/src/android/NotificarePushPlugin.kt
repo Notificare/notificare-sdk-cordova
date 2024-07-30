@@ -40,11 +40,16 @@ class NotificarePushPlugin : CordovaPlugin() {
         NotificarePushPluginEventBroker.dispatchEvent("notification_settings_changed", allowedUI)
     }
 
+    private val subscriptionIdObserver = Observer<String?> { subscriptionId ->
+        NotificarePushPluginEventBroker.dispatchEvent("subscription_id_changed", subscriptionId)
+    }
+
     override fun pluginInitialize() {
         Notificare.push().intentReceiver = NotificarePushPluginReceiver::class.java
 
         onMainThread {
             Notificare.push().observableAllowedUI.observeForever(allowedUIObserver)
+            Notificare.push().observableSubscriptionId.observeForever(subscriptionIdObserver)
         }
 
         val intent = cordova.activity.intent
@@ -74,6 +79,7 @@ class NotificarePushPlugin : CordovaPlugin() {
     override fun onDestroy() {
         onMainThread {
             Notificare.push().observableAllowedUI.removeObserver(allowedUIObserver)
+            Notificare.push().observableSubscriptionId.removeObserver(subscriptionIdObserver)
         }
     }
 

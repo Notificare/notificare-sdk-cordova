@@ -381,6 +381,13 @@ extension NotificarePushPlugin: NotificarePushDelegate {
         )
     }
 
+    func notificare(_ notificarePush: any NotificarePush, didChangeSubscriptionId subscriptionId: String?) {
+        NotificarePushPluginEventBroker.dispatchEvent(
+            name: "subscription_id_changed",
+            payload: subscriptionId
+        )
+    }
+
     func notificare(_ notificarePush: NotificarePush, shouldOpenSettings notification: NotificareNotification?) {
         do {
             NotificarePushPluginEventBroker.dispatchEvent(
