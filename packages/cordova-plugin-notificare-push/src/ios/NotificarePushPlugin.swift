@@ -160,9 +160,16 @@ class NotificarePushPlugin : CDVPlugin {
         self.commandDelegate!.send(result, callbackId: command.callbackId)
     }
 
-    @objc func getSubscriptionId(_ command: CDVInvokedUrlCommand) {
-        let result = CDVPluginResult(status: .ok, messageAs: Notificare.shared.push().subscriptionId)
-        self.commandDelegate!.send(result, callbackId: command.callbackId)
+    @objc func getSubscription(_ command: CDVInvokedUrlCommand) {
+        do {
+            let json = try Notificare.shared.push().subscription?.toJson()
+
+            let result = CDVPluginResult(status: .ok, messageAs: json)
+            self.commandDelegate!.send(result, callbackId: command.callbackId)
+        } catch {
+            let result = CDVPluginResult(status: .error, messageAs: error.localizedDescription)
+            self.commandDelegate!.send(result, callbackId: command.callbackId)
+        }
     }
 
     @objc func allowedUI(_ command: CDVInvokedUrlCommand) {
@@ -381,11 +388,15 @@ extension NotificarePushPlugin: NotificarePushDelegate {
         )
     }
 
-    func notificare(_ notificarePush: any NotificarePush, didChangeSubscriptionId subscriptionId: String?) {
-        NotificarePushPluginEventBroker.dispatchEvent(
-            name: "subscription_id_changed",
-            payload: subscriptionId
-        )
+    func notificare(_ notificarePush: any NotificarePush, didChangeSubscription subscription: NotificarePushSubscription?) {
+        do {
+            NotificarePushPluginEventBroker.dispatchEvent(
+                name: "subscription_changed",
+                payload: try subscription?.toJson()
+            )
+        } catch {
+            NotificareLogger.error("Failed to emit the subscription_changed event.", error: error)
+        }
     }
 
     func notificare(_ notificarePush: NotificarePush, shouldOpenSettings notification: NotificareNotification?) {

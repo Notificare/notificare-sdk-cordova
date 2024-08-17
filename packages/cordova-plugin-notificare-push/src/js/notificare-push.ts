@@ -4,6 +4,7 @@ import { NotificareSystemNotification } from './models/notificare-system-notific
 import { NotificareNotificationDeliveryMechanism } from './models/notificare-notification-delivery-mechanism';
 import { PushPermissionRationale, PushPermissionStatus } from './permissions';
 import { NotificareTransport } from './models/notificare-transport';
+import { NotificarePushSubscription } from './models/notificare-push-subscription';
 
 export class NotificarePush {
   public static async setAuthorizationOptions(options: string[]): Promise<void> {
@@ -36,9 +37,9 @@ export class NotificarePush {
     });
   }
 
-  public static async getSubscriptionId(): Promise<string | null> {
-    return new Promise<string | null>((resolve, reject) => {
-      cordova.exec(resolve, reject, 'NotificarePush', 'getSubscriptionId', []);
+  public static async getSubscription(): Promise<NotificarePushSubscription | null> {
+    return new Promise<NotificarePushSubscription | null>((resolve, reject) => {
+      cordova.exec(resolve, reject, 'NotificarePush', 'getSubscription', []);
     });
   }
 
@@ -144,8 +145,10 @@ export class NotificarePush {
     return new EventSubscription('notification_settings_changed', callback);
   }
 
-  public static onSubscriptionIdChanged(callback: (subscriptionId: string | undefined) => void): EventSubscription {
-    return new EventSubscription('subscription_id_changed', callback);
+  public static onSubscriptionChanged(
+    callback: (subscription: NotificarePushSubscription | undefined) => void
+  ): EventSubscription {
+    return new EventSubscription('subscription_changed', callback);
   }
 
   public static onShouldOpenNotificationSettings(
