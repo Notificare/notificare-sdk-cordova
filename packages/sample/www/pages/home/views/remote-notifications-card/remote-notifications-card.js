@@ -124,13 +124,13 @@ async function showNotificationsInfo() {
   const allowedUi = await NotificarePush.allowedUI();
   const hasRemoteNotificationsEnabled = await NotificarePush.hasRemoteNotificationsEnabled();
   const transport = await NotificarePush.getTransport();
-  const subscriptionId = await NotificarePush.getSubscriptionId();
+  const subscription = await NotificarePush.getSubscription();
 
   navigator.notification.alert(
     `allowedUi: ${allowedUi}
 enabled: ${hasRemoteNotificationsEnabled}
 transport: ${transport}
-subscriptionId: ${subscriptionId}`, // message
+token: ${subscription?.token}`, // message
     function () {
       // Callback function logic
     }, // callback
