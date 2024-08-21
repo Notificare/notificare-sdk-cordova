@@ -1,7 +1,10 @@
 # CHANGELOG
 
-## 4.0.0-beta.1
+## Upcoming release
 
+- Changed the `subscriptionId` properties to a more robust data model
+
+## 4.0.0-beta.1
 - Device identifiers become long-lived
 - Add `NotificarePush.onSubscriptionIdChanged` event for push token updates
 

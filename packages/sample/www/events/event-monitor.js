@@ -49,9 +49,9 @@ function setupListeners() {
     console.log(JSON.stringify(granted, null, 2));
   });
 
-  NotificarePush.onSubscriptionIdChanged((subscriptionId) => {
-    console.log('=== SUBSCRIPTION ID CHANGED ===');
-    console.log(`Subscription ID: ${subscriptionId}`);
+  NotificarePush.onSubscriptionChanged((subscription) => {
+    console.log('=== SUBSCRIPTION CHANGED ===');
+    console.log(JSON.stringify(subscription, null, 2));
   });
 
   NotificareInbox.onBadgeUpdated((badge) => {

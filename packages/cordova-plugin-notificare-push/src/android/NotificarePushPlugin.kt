@@ -26,6 +26,7 @@ import re.notifica.Notificare
 import re.notifica.NotificareCallback
 import re.notifica.internal.NotificareLogger
 import re.notifica.push.ktx.push
+import re.notifica.push.models.NotificarePushSubscription
 
 class NotificarePushPlugin : CordovaPlugin() {
     private var shouldShowRationale = false
@@ -40,8 +41,8 @@ class NotificarePushPlugin : CordovaPlugin() {
         NotificarePushPluginEventBroker.dispatchEvent("notification_settings_changed", allowedUI)
     }
 
-    private val subscriptionIdObserver = Observer<String?> { subscriptionId ->
-        NotificarePushPluginEventBroker.dispatchEvent("subscription_id_changed", subscriptionId)
+    private val subscriptionObserver = Observer<NotificarePushSubscription?> { subscription ->
+        NotificarePushPluginEventBroker.dispatchEvent("subscription_changed", subscription?.toJson())
     }
 
     override fun pluginInitialize() {
@@ -49,7 +50,7 @@ class NotificarePushPlugin : CordovaPlugin() {
 
         onMainThread {
             Notificare.push().observableAllowedUI.observeForever(allowedUIObserver)
-            Notificare.push().observableSubscriptionId.observeForever(subscriptionIdObserver)
+            Notificare.push().observableSubscription.observeForever(subscriptionObserver)
         }
 
         val intent = cordova.activity.intent
@@ -79,7 +80,7 @@ class NotificarePushPlugin : CordovaPlugin() {
     override fun onDestroy() {
         onMainThread {
             Notificare.push().observableAllowedUI.removeObserver(allowedUIObserver)
-            Notificare.push().observableSubscriptionId.removeObserver(subscriptionIdObserver)
+            Notificare.push().observableSubscription.removeObserver(subscriptionObserver)
         }
     }
 
@@ -94,7 +95,7 @@ class NotificarePushPlugin : CordovaPlugin() {
             "setPresentationOptions" -> setPresentationOptions(args, callback)
             "hasRemoteNotificationsEnabled" -> hasRemoteNotificationsEnabled(args, callback)
             "getTransport" -> getTransport(args, callback)
-            "getSubscriptionId" -> getSubscriptionId(args, callback)
+            "getSubscription" -> getSubscription(args, callback)
             "allowedUI" -> allowedUI(args, callback)
             "enableRemoteNotifications" -> enableRemoteNotifications(args, callback)
             "disableRemoteNotifications" -> disableRemoteNotifications(args, callback)
@@ -141,11 +142,11 @@ class NotificarePushPlugin : CordovaPlugin() {
     }
 
     private fun getTransport(@Suppress("UNUSED_PARAMETER") args: CordovaArgs, callback: CallbackContext) {
-        callback.success(Notificare.push().transport?.rawValue)
+        callback.nullableSuccess(Notificare.push().transport?.rawValue)
     }
 
-    private fun getSubscriptionId(@Suppress("UNUSED_PARAMETER") args: CordovaArgs, callback: CallbackContext) {
-        callback.success(Notificare.push().subscriptionId)
+    private fun getSubscription(@Suppress("UNUSED_PARAMETER") args: CordovaArgs, callback: CallbackContext) {
+        callback.nullableSuccess(Notificare.push().subscription?.toJson())
     }
 
     private fun allowedUI(@Suppress("UNUSED_PARAMETER") args: CordovaArgs, callback: CallbackContext) {
@@ -375,4 +376,20 @@ private fun CallbackContext.void() {
 
 private fun CallbackContext.success(b: Boolean) {
     sendPluginResult(PluginResult(PluginResult.Status.OK, b))
+}
+
+private fun CallbackContext.nullableSuccess(str: String?) {
+    if (str == null) {
+        void()
+    } else {
+        success(str)
+    }
+}
+
+private fun CallbackContext.nullableSuccess(json: JSONObject?) {
+    if (json == null) {
+        void()
+    } else {
+        success(json)
+    }
 }
