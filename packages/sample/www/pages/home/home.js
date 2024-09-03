@@ -14,7 +14,7 @@ async function onDeviceReady() {
     enqueueToast('Error checking isReady.', 'error');
   }
 
-  launchNotificare();
+  await launch();
 }
 
 function setupHomeListeners() {
@@ -48,7 +48,7 @@ function onNotificareUnlaunched() {
   homeContainer.innerHTML = '';
 }
 
-async function launchNotificare() {
+async function launch() {
   console.log(`---> Launching Notificare <---`);
 
   try {
