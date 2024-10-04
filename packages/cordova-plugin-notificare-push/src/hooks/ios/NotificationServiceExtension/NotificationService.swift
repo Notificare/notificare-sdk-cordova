@@ -55,13 +55,13 @@ class NotificationService: UNNotificationServiceExtension {
         guard let attachment = request.content.userInfo["attachment"] as? [String: Any],
               let uri = attachment["uri"] as? String
         else {
-            // NotificareLogger.debug("Could not find an attachment URI. Please ensure you're calling this method with the correct payload.")
+            // logger.debug("Could not find an attachment URI. Please ensure you're calling this method with the correct payload.")
             completion(.success(nil))
             return
         }
 
         guard let url = URL(string: uri) else {
-            // NotificareLogger.warning("Invalid attachment URI. Please ensure it's a valid URL.")
+            // logger.warning("Invalid attachment URI. Please ensure it's a valid URL.")
             completion(.failure(Error.invalidUrl))
             return
         }

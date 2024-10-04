@@ -293,7 +293,7 @@ extension NotificarePushPlugin: NotificarePushDelegate {
                 payload: payload
             )
         } catch {
-            NotificareLogger.error("Failed to emit the notification_info_received event.", error: error)
+            logger.error("Failed to emit the notification_info_received event.", error: error)
         }
     }
 
@@ -304,7 +304,7 @@ extension NotificarePushPlugin: NotificarePushDelegate {
                 payload: try notification.toJson()
             )
         } catch {
-            NotificareLogger.error("Failed to emit the system_notification_received event.", error: error)
+            logger.error("Failed to emit the system_notification_received event.", error: error)
         }
     }
 
@@ -322,7 +322,7 @@ extension NotificarePushPlugin: NotificarePushDelegate {
                 payload: try notification.toJson()
             )
         } catch {
-            NotificareLogger.error("Failed to emit the notification_opened event.", error: error)
+            logger.error("Failed to emit the notification_opened event.", error: error)
         }
     }
 
@@ -353,7 +353,7 @@ extension NotificarePushPlugin: NotificarePushDelegate {
                 payload: payload
             )
         } catch {
-            NotificareLogger.error("Failed to emit the notification_action_opened event.", error: error)
+            logger.error("Failed to emit the notification_action_opened event.", error: error)
         }
     }
 
@@ -395,7 +395,7 @@ extension NotificarePushPlugin: NotificarePushDelegate {
                 payload: try subscription?.toJson()
             )
         } catch {
-            NotificareLogger.error("Failed to emit the subscription_changed event.", error: error)
+            logger.error("Failed to emit the subscription_changed event.", error: error)
         }
     }
 
@@ -406,7 +406,7 @@ extension NotificarePushPlugin: NotificarePushDelegate {
                 payload: try notification?.toJson()
             )
         } catch {
-            NotificareLogger.error("Failed to emit the should_open_notification_settings event.", error: error)
+            logger.error("Failed to emit the should_open_notification_settings event.", error: error)
         }
     }
 
