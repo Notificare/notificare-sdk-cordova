@@ -17,6 +17,8 @@ import re.notifica.models.*
 class NotificarePlugin : CordovaPlugin() {
 
     override fun pluginInitialize() {
+        logger.hasDebugLoggingEnabled = Notificare.options?.debugLoggingEnabled ?: false
+
         Notificare.intentReceiver = NotificarePluginReceiver::class.java
 
         val intent = cordova.activity.intent

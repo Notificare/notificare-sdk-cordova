@@ -41,6 +41,7 @@
         <source-file src="src/android/NotificarePlugin.kt" target-dir="app/src/main/kotlin/re/notifica/cordova" />
         <source-file src="src/android/NotificarePluginEventBroker.kt" target-dir="app/src/main/kotlin/re/notifica/cordova" />
         <source-file src="src/android/NotificarePluginReceiver.kt" target-dir="app/src/main/kotlin/re/notifica/cordova" />
+        <source-file src="src/android/Logger.kt" target-dir="app/src/main/kotlin/re/notifica/cordova" />
 
         <framework custom="true" src="src/android/build-extras.gradle" type="gradleReference" />
     </platform>
@@ -55,6 +56,7 @@
 
         <source-file src="src/ios/NotificarePlugin.swift" />
         <source-file src="src/ios/NotificarePluginEventBroker.swift" />
+        <source-file src="src/ios/NotificareLogger.swift" />
 
         <podspec>
             <config>
@@ -62,6 +64,7 @@
             </config>
             <pods use-frameworks="true">
                 <pod name="Notificare/NotificareKit" spec="4.0.0" />
+                <pod name="Notificare/NotificareUtilitiesKit" spec="4.0.0" />
             </pods>
         </podspec>
     </platform>
