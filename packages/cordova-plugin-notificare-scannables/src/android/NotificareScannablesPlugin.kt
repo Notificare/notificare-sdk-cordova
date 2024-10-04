@@ -8,7 +8,6 @@ import org.json.JSONArray
 import org.json.JSONObject
 import re.notifica.Notificare
 import re.notifica.NotificareCallback
-import re.notifica.internal.NotificareLogger
 import re.notifica.scannables.NotificareScannables
 import re.notifica.scannables.ktx.scannables
 import re.notifica.scannables.models.NotificareScannable
@@ -17,6 +16,8 @@ import re.notifica.scannables.models.toJson
 class NotificareScannablesPlugin : CordovaPlugin(), NotificareScannables.ScannableSessionListener {
 
     override fun pluginInitialize() {
+        logger.hasDebugLoggingEnabled = Notificare.options?.debugLoggingEnabled ?: false
+
         Notificare.scannables().addListener(this)
     }
 
@@ -106,7 +107,7 @@ class NotificareScannablesPlugin : CordovaPlugin(), NotificareScannables.Scannab
         try {
             NotificareScannablesPluginEventBroker.dispatchEvent("scannable_detected", scannable.toJson())
         } catch (e: Exception) {
-            NotificareLogger.error("Failed to emit the scannable_detected event.", e)
+            logger.error("Failed to emit the scannable_detected event.", e)
         }
     }
 
@@ -114,7 +115,7 @@ class NotificareScannablesPlugin : CordovaPlugin(), NotificareScannables.Scannab
         try {
             NotificareScannablesPluginEventBroker.dispatchEvent("scannable_session_failed", error.localizedMessage)
         } catch (e: Exception) {
-            NotificareLogger.error("Failed to emit the scannable_session_failed event.", e)
+            logger.error("Failed to emit the scannable_session_failed event.", e)
         }
     }
 

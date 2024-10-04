@@ -44,6 +44,7 @@
 
         <source-file src="src/android/NotificareScannablesPlugin.kt" target-dir="app/src/main/kotlin/re/notifica/scannables/cordova" />
         <source-file src="src/android/NotificareScannablesPluginEventBroker.kt" target-dir="app/src/main/kotlin/re/notifica/scannables/cordova" />
+        <source-file src="src/android/Logger.kt" target-dir="app/src/main/kotlin/re/notifica/scannables/cordova" />
 
         <framework custom="true" src="src/android/build-extras.gradle" type="gradleReference" />
     </platform>
