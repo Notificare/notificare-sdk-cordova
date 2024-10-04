@@ -37,6 +37,7 @@
 
         <source-file src="src/android/NotificareInboxPlugin.kt" target-dir="app/src/main/kotlin/re/notifica/inbox/cordova" />
         <source-file src="src/android/NotificareInboxPluginEventBroker.kt" target-dir="app/src/main/kotlin/re/notifica/inbox/cordova" />
+        <source-file src="src/android/Logger.kt" target-dir="app/src/main/kotlin/re/notifica/inbox/cordova" />
 
         <framework custom="true" src="src/android/build-extras.gradle" type="gradleReference" />
     </platform>
