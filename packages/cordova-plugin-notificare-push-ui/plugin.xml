@@ -45,6 +45,7 @@
 
         <source-file src="src/android/NotificarePushUIPlugin.kt" target-dir="app/src/main/kotlin/re/notifica/push/ui/cordova" />
         <source-file src="src/android/NotificarePushUIPluginEventBroker.kt" target-dir="app/src/main/kotlin/re/notifica/push/ui/cordova" />
+        <source-file src="src/android/Logger.kt" target-dir="app/src/main/kotlin/re/notifica/push/ui/cordova" />
         <source-file src="src/android/notificare_styles.xml" target-dir="/res/values" />
 
         <framework custom="true" src="src/android/build-extras.gradle" type="gradleReference" />
