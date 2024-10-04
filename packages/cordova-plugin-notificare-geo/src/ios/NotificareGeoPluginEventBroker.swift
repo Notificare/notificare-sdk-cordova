@@ -35,13 +35,13 @@ class NotificareGeoPluginEventBroker {
 
     static private func processQueue() {
         guard let consumer = consumer else {
-            NotificareLogger.debug("Cannot process event queue without a consumer.")
+            logger.debug("Cannot process event queue without a consumer.")
             return
         }
 
         guard !eventQueue.isEmpty else { return }
 
-        NotificareLogger.debug("Processing event queue with ${eventQueue.size} items.")
+        logger.debug("Processing event queue with ${eventQueue.size} items.")
         eventQueue.forEach { consumer($0) }
         eventQueue.removeAll()
     }
