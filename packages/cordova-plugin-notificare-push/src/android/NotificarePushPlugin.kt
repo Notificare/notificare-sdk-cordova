@@ -24,7 +24,6 @@ import org.json.JSONArray
 import org.json.JSONObject
 import re.notifica.Notificare
 import re.notifica.NotificareCallback
-import re.notifica.internal.NotificareLogger
 import re.notifica.push.ktx.push
 import re.notifica.push.models.NotificarePushSubscription
 
@@ -46,6 +45,8 @@ class NotificarePushPlugin : CordovaPlugin() {
     }
 
     override fun pluginInitialize() {
+        logger.hasDebugLoggingEnabled = Notificare.options?.debugLoggingEnabled ?: false
+
         Notificare.push().intentReceiver = NotificarePushPluginReceiver::class.java
 
         onMainThread {
@@ -204,7 +205,7 @@ class NotificarePushPlugin : CordovaPlugin() {
         }
 
         val activity = cordova.activity ?: run {
-            NotificareLogger.warning("Unable to acquire a reference to the current activity.")
+            logger.warning("Unable to acquire a reference to the current activity.")
             callback.error("Unable to acquire a reference to the current activity.")
             return
         }
@@ -216,7 +217,7 @@ class NotificarePushPlugin : CordovaPlugin() {
 
     private fun presentPermissionRationale(@Suppress("UNUSED_PARAMETER") args: CordovaArgs, callback: CallbackContext) {
         val activity = cordova.activity ?: run {
-            NotificareLogger.warning("Unable to acquire a reference to the current activity.")
+            logger.warning("Unable to acquire a reference to the current activity.")
             callback.error("Unable to acquire a reference to the current activity.")
             return
         }
@@ -242,7 +243,7 @@ class NotificarePushPlugin : CordovaPlugin() {
             else activity.getString(android.R.string.ok)
 
         try {
-            NotificareLogger.debug("Presenting permission rationale for notifications.")
+            logger.debug("Presenting permission rationale for notifications.")
 
             activity.runOnUiThread {
                 AlertDialog.Builder(activity)
@@ -271,7 +272,7 @@ class NotificarePushPlugin : CordovaPlugin() {
         }
 
         if (hasOnGoingPermissionRequest) {
-            NotificareLogger.warning("A request for permissions is already running, please wait for it to finish before doing another request.")
+            logger.warning("A request for permissions is already running, please wait for it to finish before doing another request.")
             callback.error("A request for permissions is already running, please wait for it to finish before doing another request.")
             return
         }

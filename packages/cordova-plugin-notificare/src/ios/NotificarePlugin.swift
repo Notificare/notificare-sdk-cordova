@@ -6,6 +6,7 @@ class NotificarePlugin : CDVPlugin {
     override func pluginInitialize() {
         super.pluginInitialize()
 
+        logger.hasDebugLoggingEnabled = Notificare.shared.options?.debugLoggingEnabled ?? false
         Notificare.shared.delegate = self
 
         _ = NotificareSwizzler.addInterceptor(self)
@@ -446,7 +447,7 @@ extension NotificarePlugin: NotificareDelegate {
                 payload: try device.toJson()
             )
         } catch {
-            NotificareLogger.error("Failed to emit the ready event.", error: error)
+            logger.error("Failed to emit the ready event.", error: error)
         }
     }
 
@@ -457,7 +458,7 @@ extension NotificarePlugin: NotificareDelegate {
                 payload: try application.toJson()
             )
         } catch {
-            NotificareLogger.error("Failed to emit the ready event.", error: error)
+            logger.error("Failed to emit the ready event.", error: error)
         }
 
         let holdEventsUntilReady = commandDelegate.settings["re.notifica.cordova.hold_events_until_ready"] as? String

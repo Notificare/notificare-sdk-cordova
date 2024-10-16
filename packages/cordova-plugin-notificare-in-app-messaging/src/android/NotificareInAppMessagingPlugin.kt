@@ -10,11 +10,12 @@ import re.notifica.Notificare
 import re.notifica.iam.NotificareInAppMessaging
 import re.notifica.iam.ktx.inAppMessaging
 import re.notifica.iam.models.NotificareInAppMessage
-import re.notifica.internal.NotificareLogger
 
 class NotificareInAppMessagingPlugin : CordovaPlugin(), NotificareInAppMessaging.MessageLifecycleListener {
 
     override fun pluginInitialize() {
+        logger.hasDebugLoggingEnabled = Notificare.options?.debugLoggingEnabled ?: false
+
         Notificare.inAppMessaging().addLifecycleListener(this)
     }
 
@@ -71,7 +72,7 @@ class NotificareInAppMessagingPlugin : CordovaPlugin(), NotificareInAppMessaging
         try {
             NotificareInAppMessagingPluginEventBroker.dispatchEvent("message_presented", message.toJson())
         } catch (e: Exception) {
-            NotificareLogger.error("Failed to emit the message_presented event.", e)
+            logger.error("Failed to emit the message_presented event.", e)
         }
     }
 
@@ -79,7 +80,7 @@ class NotificareInAppMessagingPlugin : CordovaPlugin(), NotificareInAppMessaging
         try {
             NotificareInAppMessagingPluginEventBroker.dispatchEvent("message_finished_presenting", message.toJson())
         } catch (e: Exception) {
-            NotificareLogger.error("Failed to emit the message_finished_presenting event.", e)
+            logger.error("Failed to emit the message_finished_presenting event.", e)
         }
     }
 
@@ -87,7 +88,7 @@ class NotificareInAppMessagingPlugin : CordovaPlugin(), NotificareInAppMessaging
         try {
             NotificareInAppMessagingPluginEventBroker.dispatchEvent("message_failed_to_present", message.toJson())
         } catch (e: Exception) {
-            NotificareLogger.error("Failed to emit the message_failed_to_present event.", e)
+            logger.error("Failed to emit the message_failed_to_present event.", e)
         }
     }
 
@@ -99,7 +100,7 @@ class NotificareInAppMessagingPlugin : CordovaPlugin(), NotificareInAppMessaging
 
             NotificareInAppMessagingPluginEventBroker.dispatchEvent("action_executed", json)
         } catch (e: Exception) {
-            NotificareLogger.error("Failed to emit the action_executed event.", e)
+            logger.error("Failed to emit the action_executed event.", e)
         }
     }
 
@@ -119,7 +120,7 @@ class NotificareInAppMessagingPlugin : CordovaPlugin(), NotificareInAppMessaging
 
             NotificareInAppMessagingPluginEventBroker.dispatchEvent("action_failed_to_execute", json)
         } catch (e: Exception) {
-            NotificareLogger.error("Failed to emit the action_failed_to_execute event.", e)
+            logger.error("Failed to emit the action_failed_to_execute event.", e)
         }
     }
 

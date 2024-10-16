@@ -2,7 +2,6 @@ package re.notifica.cordova
 
 import android.content.Context
 import re.notifica.NotificareIntentReceiver
-import re.notifica.internal.NotificareLogger
 import re.notifica.models.NotificareApplication
 import re.notifica.models.NotificareDevice
 
@@ -12,7 +11,7 @@ class NotificarePluginReceiver : NotificareIntentReceiver() {
         try {
             NotificarePluginEventBroker.dispatchEvent("ready", application.toJson())
         } catch (e: Exception) {
-            NotificareLogger.error("Failed to emit the ready event.", e)
+            logger.error("Failed to emit the ready event.", e)
         }
     }
 
@@ -24,7 +23,7 @@ class NotificarePluginReceiver : NotificareIntentReceiver() {
         try {
             NotificarePluginEventBroker.dispatchEvent("device_registered", device.toJson())
         } catch (e: Exception) {
-            NotificareLogger.error("Failed to emit the device_registered event.", e)
+            logger.error("Failed to emit the device_registered event.", e)
         }
     }
 }

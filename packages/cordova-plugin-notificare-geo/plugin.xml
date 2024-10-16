@@ -37,6 +37,7 @@
 
         <source-file src="src/android/NotificareGeoPlugin.kt" target-dir="app/src/main/kotlin/re/notifica/geo/cordova" />
         <source-file src="src/android/NotificareGeoPluginEventBroker.kt" target-dir="app/src/main/kotlin/re/notifica/geo/cordova" />
+        <source-file src="src/android/Logger.kt" target-dir="app/src/main/kotlin/re/notifica/geo/cordova" />
 
         <framework custom="true" src="src/android/build-extras.gradle" type="gradleReference" />
     </platform>
@@ -57,7 +58,7 @@
                 <source url="https://github.com/CocoaPods/Specs.git" />
             </config>
             <pods use-frameworks="true">
-                <pod name="Notificare/NotificareGeoKit" spec="4.0.0-beta.2" />
+                <pod name="Notificare/NotificareGeoKit" spec="4.0.0" />
             </pods>
         </podspec>
     </platform>

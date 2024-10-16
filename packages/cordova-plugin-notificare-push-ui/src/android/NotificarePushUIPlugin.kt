@@ -8,7 +8,6 @@ import org.apache.cordova.PluginResult
 import org.json.JSONArray
 import org.json.JSONObject
 import re.notifica.Notificare
-import re.notifica.internal.NotificareLogger
 import re.notifica.models.NotificareNotification
 import re.notifica.push.ui.NotificarePushUI
 import re.notifica.push.ui.ktx.pushUI
@@ -16,6 +15,8 @@ import re.notifica.push.ui.ktx.pushUI
 class NotificarePushUIPlugin : CordovaPlugin(), NotificarePushUI.NotificationLifecycleListener {
 
     override fun pluginInitialize() {
+        logger.hasDebugLoggingEnabled = Notificare.options?.debugLoggingEnabled ?: false
+
         Notificare.pushUI().addLifecycleListener(this)
     }
 
@@ -84,7 +85,7 @@ class NotificarePushUIPlugin : CordovaPlugin(), NotificarePushUI.NotificationLif
         try {
             NotificarePushUIPluginEventBroker.dispatchEvent("notification_will_present", notification.toJson())
         } catch (e: Exception) {
-            NotificareLogger.error("Failed to emit the notification_will_present event.", e)
+            logger.error("Failed to emit the notification_will_present event.", e)
         }
     }
 
@@ -92,7 +93,7 @@ class NotificarePushUIPlugin : CordovaPlugin(), NotificarePushUI.NotificationLif
         try {
             NotificarePushUIPluginEventBroker.dispatchEvent("notification_presented", notification.toJson())
         } catch (e: Exception) {
-            NotificareLogger.error("Failed to emit the notification_presented event.", e)
+            logger.error("Failed to emit the notification_presented event.", e)
         }
     }
 
@@ -100,7 +101,7 @@ class NotificarePushUIPlugin : CordovaPlugin(), NotificarePushUI.NotificationLif
         try {
             NotificarePushUIPluginEventBroker.dispatchEvent("notification_finished_presenting", notification.toJson())
         } catch (e: Exception) {
-            NotificareLogger.error("Failed to emit the notification_finished_presenting event.", e)
+            logger.error("Failed to emit the notification_finished_presenting event.", e)
         }
     }
 
@@ -108,7 +109,7 @@ class NotificarePushUIPlugin : CordovaPlugin(), NotificarePushUI.NotificationLif
         try {
             NotificarePushUIPluginEventBroker.dispatchEvent("notification_failed_to_present", notification.toJson())
         } catch (e: Exception) {
-            NotificareLogger.error("Failed to emit the notification_failed_to_present event.", e)
+            logger.error("Failed to emit the notification_failed_to_present event.", e)
         }
     }
 
@@ -120,7 +121,7 @@ class NotificarePushUIPlugin : CordovaPlugin(), NotificarePushUI.NotificationLif
 
             NotificarePushUIPluginEventBroker.dispatchEvent("notification_url_clicked", json)
         } catch (e: Exception) {
-            NotificareLogger.error("Failed to emit the notification_url_clicked event.", e)
+            logger.error("Failed to emit the notification_url_clicked event.", e)
         }
     }
 
@@ -132,7 +133,7 @@ class NotificarePushUIPlugin : CordovaPlugin(), NotificarePushUI.NotificationLif
 
             NotificarePushUIPluginEventBroker.dispatchEvent("action_will_execute", json)
         } catch (e: Exception) {
-            NotificareLogger.error("Failed to emit the action_will_execute event.", e)
+            logger.error("Failed to emit the action_will_execute event.", e)
         }
     }
 
@@ -144,7 +145,7 @@ class NotificarePushUIPlugin : CordovaPlugin(), NotificarePushUI.NotificationLif
 
             NotificarePushUIPluginEventBroker.dispatchEvent("action_executed", json)
         } catch (e: Exception) {
-            NotificareLogger.error("Failed to emit the action_executed event.", e)
+            logger.error("Failed to emit the action_executed event.", e)
         }
     }
 
@@ -161,7 +162,7 @@ class NotificarePushUIPlugin : CordovaPlugin(), NotificarePushUI.NotificationLif
 
             NotificarePushUIPluginEventBroker.dispatchEvent("action_failed_to_execute", json)
         } catch (e: Exception) {
-            NotificareLogger.error("Failed to emit the action_failed_to_execute event.", e)
+            logger.error("Failed to emit the action_failed_to_execute event.", e)
         }
     }
 
@@ -178,7 +179,7 @@ class NotificarePushUIPlugin : CordovaPlugin(), NotificarePushUI.NotificationLif
 
             NotificarePushUIPluginEventBroker.dispatchEvent("custom_action_received", uri.toString())
         } catch (e: Exception) {
-            NotificareLogger.error("Failed to emit the custom_action_received event.", e)
+            logger.error("Failed to emit the custom_action_received event.", e)
         }
     }
 

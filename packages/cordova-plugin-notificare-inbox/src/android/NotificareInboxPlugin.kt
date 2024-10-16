@@ -15,7 +15,6 @@ import re.notifica.inbox.ktx.inbox
 import re.notifica.inbox.models.NotificareInboxItem
 import re.notifica.inbox.models.fromJson
 import re.notifica.inbox.models.toJson
-import re.notifica.internal.NotificareLogger
 import re.notifica.models.NotificareNotification
 import java.util.*
 
@@ -30,7 +29,7 @@ class NotificareInboxPlugin : CordovaPlugin() {
 
             NotificareInboxPluginEventBroker.dispatchEvent("inbox_updated", json)
         } catch (e: Exception) {
-            NotificareLogger.error("Failed to emit the inbox_updated event.", e)
+            logger.error("Failed to emit the inbox_updated event.", e)
         }
     }
 
@@ -41,6 +40,8 @@ class NotificareInboxPlugin : CordovaPlugin() {
     }
 
     override fun pluginInitialize() {
+        logger.hasDebugLoggingEnabled = Notificare.options?.debugLoggingEnabled ?: false
+
         onMainThread {
             Notificare.inbox().observableItems.observeForever(itemsObserver)
             Notificare.inbox().observableBadge.observeForever(badgeObserver)
