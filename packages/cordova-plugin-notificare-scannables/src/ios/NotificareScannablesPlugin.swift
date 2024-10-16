@@ -112,7 +112,7 @@ extension NotificareScannablesPlugin: NotificareScannablesDelegate {
                 payload: try scannable.toJson()
             )
         } catch {
-            NotificareLogger.error("Failed to emit the scannable_detected event.", error: error)
+            logger.error("Failed to emit the scannable_detected event.", error: error)
         }
     }
 

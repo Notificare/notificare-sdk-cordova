@@ -3,6 +3,8 @@ import { NotificareNotification, NotificareNotificationAction } from 'cordova-pl
 import { NotificareSystemNotification } from './models/notificare-system-notification';
 import { NotificareNotificationDeliveryMechanism } from './models/notificare-notification-delivery-mechanism';
 import { PushPermissionRationale, PushPermissionStatus } from './permissions';
+import { NotificareTransport } from './models/notificare-transport';
+import { NotificarePushSubscription } from './models/notificare-push-subscription';
 
 export class NotificarePush {
   public static async setAuthorizationOptions(options: string[]): Promise<void> {
@@ -26,6 +28,18 @@ export class NotificarePush {
   public static async hasRemoteNotificationsEnabled(): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
       cordova.exec(resolve, reject, 'NotificarePush', 'hasRemoteNotificationsEnabled', []);
+    });
+  }
+
+  public static async getTransport(): Promise<NotificareTransport | null> {
+    return new Promise<NotificareTransport | null>((resolve, reject) => {
+      cordova.exec(resolve, reject, 'NotificarePush', 'getTransport', []);
+    });
+  }
+
+  public static async getSubscription(): Promise<NotificarePushSubscription | null> {
+    return new Promise<NotificarePushSubscription | null>((resolve, reject) => {
+      cordova.exec(resolve, reject, 'NotificarePush', 'getSubscription', []);
     });
   }
 
@@ -83,13 +97,6 @@ export class NotificarePush {
 
   // region Events
 
-  /**
-   * @deprecated Listen to onNotificationInfoReceived(notification, deliveryMechanism) instead.
-   */
-  public static onNotificationReceived(callback: (notification: NotificareNotification) => void): EventSubscription {
-    return new EventSubscription('notification_received', callback);
-  }
-
   public static onNotificationInfoReceived(
     callback: (data: {
       notification: NotificareNotification;
@@ -136,6 +143,12 @@ export class NotificarePush {
 
   public static onNotificationSettingsChanged(callback: (granted: boolean) => void): EventSubscription {
     return new EventSubscription('notification_settings_changed', callback);
+  }
+
+  public static onSubscriptionChanged(
+    callback: (subscription: NotificarePushSubscription | undefined) => void
+  ): EventSubscription {
+    return new EventSubscription('subscription_changed', callback);
   }
 
   public static onShouldOpenNotificationSettings(

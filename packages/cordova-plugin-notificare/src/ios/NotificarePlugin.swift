@@ -6,6 +6,7 @@ class NotificarePlugin : CDVPlugin {
     override func pluginInitialize() {
         super.pluginInitialize()
 
+        logger.hasDebugLoggingEnabled = Notificare.shared.options?.debugLoggingEnabled ?? false
         Notificare.shared.delegate = self
 
         _ = NotificareSwizzler.addInterceptor(self)
@@ -61,17 +62,29 @@ class NotificarePlugin : CDVPlugin {
 
 
     @objc func launch(_ command: CDVInvokedUrlCommand) {
-        Notificare.shared.launch()
-
-        let result = CDVPluginResult(status: .ok)
-        self.commandDelegate!.send(result, callbackId: command.callbackId)
+        Notificare.shared.launch { result in
+            switch result {
+            case .success:
+                let result = CDVPluginResult(status: .ok)
+                self.commandDelegate!.send(result, callbackId: command.callbackId)
+            case let .failure(error):
+                let result = CDVPluginResult(status: .error, messageAs: error.localizedDescription)
+                self.commandDelegate!.send(result, callbackId: command.callbackId)
+            }
+        }
     }
 
     @objc func unlaunch(_ command: CDVInvokedUrlCommand) {
-        Notificare.shared.unlaunch()
-
-        let result = CDVPluginResult(status: .ok)
-        self.commandDelegate!.send(result, callbackId: command.callbackId)
+        Notificare.shared.unlaunch { result in
+            switch result {
+            case .success:
+                let result = CDVPluginResult(status: .ok)
+                self.commandDelegate!.send(result, callbackId: command.callbackId)
+            case let .failure(error):
+                let result = CDVPluginResult(status: .error, messageAs: error.localizedDescription)
+                self.commandDelegate!.send(result, callbackId: command.callbackId)
+            }
+        }
     }
 
     @objc func getApplication(_ command: CDVInvokedUrlCommand) {
@@ -190,6 +203,22 @@ class NotificarePlugin : CDVPlugin {
         let userName = command.argument(at: 1) as! String?
 
         Notificare.shared.device().register(userId: userId, userName: userName) { result in
+            switch result {
+            case .success:
+                let result = CDVPluginResult(status: .ok)
+                self.commandDelegate!.send(result, callbackId: command.callbackId)
+            case let .failure(error):
+                let result = CDVPluginResult(status: .error, messageAs: error.localizedDescription)
+                self.commandDelegate!.send(result, callbackId: command.callbackId)
+            }
+        }
+    }
+
+    @objc func updateUser(_ command: CDVInvokedUrlCommand) {
+        let userId = command.argument(at: 0) as! String?
+        let userName = command.argument(at: 1) as! String?
+
+        Notificare.shared.device().updateUser(userId: userId, userName: userName) { result in
             switch result {
             case .success:
                 let result = CDVPluginResult(status: .ok)
@@ -418,7 +447,7 @@ extension NotificarePlugin: NotificareDelegate {
                 payload: try device.toJson()
             )
         } catch {
-            NotificareLogger.error("Failed to emit the ready event.", error: error)
+            logger.error("Failed to emit the ready event.", error: error)
         }
     }
 
@@ -429,7 +458,7 @@ extension NotificarePlugin: NotificareDelegate {
                 payload: try application.toJson()
             )
         } catch {
-            NotificareLogger.error("Failed to emit the ready event.", error: error)
+            logger.error("Failed to emit the ready event.", error: error)
         }
 
         let holdEventsUntilReady = commandDelegate.settings["re.notifica.cordova.hold_events_until_ready"] as? String

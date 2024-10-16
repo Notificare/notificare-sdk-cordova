@@ -4,7 +4,6 @@ import android.os.Handler
 import android.os.Looper
 import org.apache.cordova.CordovaPreferences
 import re.notifica.Notificare
-import re.notifica.internal.NotificareLogger
 import re.notifica.models.NotificareApplication
 
 internal object NotificarePluginEventBroker : Notificare.Listener {
@@ -41,13 +40,13 @@ internal object NotificarePluginEventBroker : Notificare.Listener {
 
     private fun processQueue() {
         val consumer = consumer ?: run {
-            NotificareLogger.debug("Cannot process event queue without a consumer.")
+            logger.debug("Cannot process event queue without a consumer.")
             return
         }
 
         if (eventQueue.isEmpty()) return
 
-        NotificareLogger.debug("Processing event queue with ${eventQueue.size} items.")
+        logger.debug("Processing event queue with ${eventQueue.size} items.")
         eventQueue.forEach { consumer.onEvent(it) }
         eventQueue.clear()
     }

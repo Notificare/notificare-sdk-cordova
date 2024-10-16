@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin id="cordova-plugin-notificare"
-        version="3.10.0"
+        version="4.0.0"
         xmlns="http://apache.org/cordova/ns/plugins/1.0"
         xmlns:android="http://schemas.android.com/apk/res/android">
 
@@ -14,6 +14,8 @@
     <asset src="build/notificare.bundle.js.map" target="plugins/cordova-plugin-notificare/build/notificare.bundle.js.map" />
 
     <platform name="android">
+        <hook type="after_prepare" src="src/hooks/android/after-prepare.js"/>
+
         <config-file target="config.xml" parent="/*">
             <preference name="AndroidXEnabled" value="true" />
             <preference name="GradlePluginKotlinEnabled" value="true" />
@@ -41,6 +43,7 @@
         <source-file src="src/android/NotificarePlugin.kt" target-dir="app/src/main/kotlin/re/notifica/cordova" />
         <source-file src="src/android/NotificarePluginEventBroker.kt" target-dir="app/src/main/kotlin/re/notifica/cordova" />
         <source-file src="src/android/NotificarePluginReceiver.kt" target-dir="app/src/main/kotlin/re/notifica/cordova" />
+        <source-file src="src/android/Logger.kt" target-dir="app/src/main/kotlin/re/notifica/cordova" />
 
         <framework custom="true" src="src/android/build-extras.gradle" type="gradleReference" />
     </platform>
@@ -55,13 +58,15 @@
 
         <source-file src="src/ios/NotificarePlugin.swift" />
         <source-file src="src/ios/NotificarePluginEventBroker.swift" />
+        <source-file src="src/ios/NotificareLogger.swift" />
 
         <podspec>
             <config>
                 <source url="https://github.com/CocoaPods/Specs.git" />
             </config>
             <pods use-frameworks="true">
-                <pod name="Notificare/NotificareKit" spec="3.10.0" />
+                <pod name="Notificare/NotificareKit" spec="4.0.0" />
+                <pod name="Notificare/NotificareUtilitiesKit" spec="4.0.0" />
             </pods>
         </podspec>
     </platform>

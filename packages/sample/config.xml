@@ -21,17 +21,16 @@
         <preference name="android-targetSdkVersion" value="34" />
         <preference name="android-buildToolsVersion" value="34.0.0" />
 
-        <preference name="GradleVersion" value="7.6" />
-        <preference name="AndroidGradlePluginVersion" value="7.4.2" />
+        <preference name="GradleVersion" value="8.7" />
+        <preference name="AndroidGradlePluginVersion" value="8.5.1" />
         <preference name="GradlePluginKotlinVersion" value="1.9.10" />
-
+        <preference name="NotificareServicesGradlePluginVersion" value="1.0.1" />
         <preference name="AndroidLaunchMode" value="singleTask" />
 
         <allow-intent href="market:*" />
 
         <resource-file src="notificare-services.json" target="app/notificare-services.json" />
         <resource-file src="google-services.json" target="app/google-services.json" />
-        <resource-file src="agconnect-services.json" target="app/agconnect-services.json" />
 
         <config-file target="AndroidManifest.xml" parent="/manifest/application">
             <meta-data android:name="re.notifica.debug_logging_enabled" android:value="true" />
@@ -58,11 +57,13 @@
         <preference name="deployment-target" value="13.0" />
         <preference name="scheme" value="app" />
         <preference name="hostname" value="localhost" />
+        <preference name="NotificareNotificationServiceExtensionEnabled" value="true" />
 
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
 
         <resource-file src="NotificareServices.plist" target="NotificareServices.plist" />
+        <resource-file src="NotificareOptions.plist" target="NotificareOptions.plist" />
 
         <config-file target="*-Info.plist" parent="CFBundleURLTypes">
             <array>

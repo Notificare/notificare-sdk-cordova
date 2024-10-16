@@ -265,7 +265,7 @@ extension NotificareGeoPlugin: NotificareGeoDelegate {
                 payload: try location.toJson()
             )
         } catch {
-            NotificareLogger.error("Failed to emit the location_updated event.", error: error)
+            logger.error("Failed to emit the location_updated event.", error: error)
         }
     }
 
@@ -276,7 +276,7 @@ extension NotificareGeoPlugin: NotificareGeoDelegate {
                 payload: try region.toJson()
             )
         } catch {
-            NotificareLogger.error("Failed to emit the region_entered event.", error: error)
+            logger.error("Failed to emit the region_entered event.", error: error)
         }
     }
 
@@ -287,7 +287,7 @@ extension NotificareGeoPlugin: NotificareGeoDelegate {
                 payload: try region.toJson()
             )
         } catch {
-            NotificareLogger.error("Failed to emit the region_exited event.", error: error)
+            logger.error("Failed to emit the region_exited event.", error: error)
         }
     }
 
@@ -298,7 +298,7 @@ extension NotificareGeoPlugin: NotificareGeoDelegate {
                 payload: try beacon.toJson()
             )
         } catch {
-            NotificareLogger.error("Failed to emit the beacon_entered event.", error: error)
+            logger.error("Failed to emit the beacon_entered event.", error: error)
         }
     }
 
@@ -309,7 +309,7 @@ extension NotificareGeoPlugin: NotificareGeoDelegate {
                 payload: try beacon.toJson()
             )
         } catch {
-            NotificareLogger.error("Failed to emit the beacon_exited event.", error: error)
+            logger.error("Failed to emit the beacon_exited event.", error: error)
         }
     }
 
@@ -325,7 +325,7 @@ extension NotificareGeoPlugin: NotificareGeoDelegate {
                 payload: payload
             )
         } catch {
-            NotificareLogger.error("Failed to emit the beacons_ranged event.", error: error)
+            logger.error("Failed to emit the beacons_ranged event.", error: error)
         }
     }
 
@@ -336,7 +336,7 @@ extension NotificareGeoPlugin: NotificareGeoDelegate {
                 payload: try visit.toJson()
             )
         } catch {
-            NotificareLogger.error("Failed to emit the visit event.", error: error)
+            logger.error("Failed to emit the visit event.", error: error)
         }
     }
 
@@ -347,7 +347,7 @@ extension NotificareGeoPlugin: NotificareGeoDelegate {
                 payload: try heading.toJson()
             )
         } catch {
-            NotificareLogger.error("Failed to emit the heading_updated event.", error: error)
+            logger.error("Failed to emit the heading_updated event.", error: error)
         }
     }
 }
