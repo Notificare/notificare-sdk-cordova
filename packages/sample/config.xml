@@ -24,7 +24,7 @@
         <preference name="GradleVersion" value="8.7" />
         <preference name="AndroidGradlePluginVersion" value="8.5.1" />
         <preference name="GradlePluginKotlinVersion" value="1.9.10" />
-
+        <preference name="NotificareServicesGradlePluginVersion" value="1.0.1" />
         <preference name="AndroidLaunchMode" value="singleTask" />
 
         <allow-intent href="market:*" />
