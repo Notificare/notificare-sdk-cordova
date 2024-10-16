@@ -1,11 +1,19 @@
 buildscript {
+    ext {
+        def projectConfigFilePath = "$rootDir/notificare-gradle-config.json"
+        def jsonFile = new File(projectConfigFilePath)
+        notificareConfig = new groovy.json.JsonSlurper().parseText(jsonFile.text)
+    }
+
     repositories {
         google()
         mavenCentral()
         maven { url "https://maven.notifica.re/releases" }
     }
     dependencies {
-        classpath 're.notifica.gradle:notificare-services:1.0.1'
+        String notificareServicesGradlePluginClassPath = "re.notifica.gradle:notificare-services:${notificareConfig.NOTIFICARE_SERVICES_GRADLE_PLUGIN_VERSION}"
+        println "Adding classpath: $notificareServicesGradlePluginClassPath"
+        classpath notificareServicesGradlePluginClassPath
     }
 }
 
