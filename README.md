@@ -7,7 +7,7 @@
 
 The Notificare Cordova SDK makes it quick and easy to communicate efficiently with many of the Notificare API services and enables you to seamlessly integrate our various features, from Push Notifications to Contextualised Storage.
 
-Get started with our [📚 integration guides](https://docs.notifica.re/sdk/v3/cordova/setup) and [example projects](#examples), or [📘 browse the SDK reference]() (coming soon).
+Get started with our [📚 integration guides](https://docs.notifica.re/sdk/v4/cordova/setup) and [example projects](#examples).
 
 
 Table of contents
@@ -69,7 +69,7 @@ yarn add cordova-plugin-notificare-scannables
 ## Getting Started
 
 ### Integration
-Get started with our [📚 integration guides](https://docs.notifica.re/sdk/v3/cordova/setup) and [example projects](#examples), or [📘 browse the SDK reference]() (coming soon).
+Get started with our [📚 integration guides](https://docs.notifica.re/sdk/v4/cordova/setup) and [example projects](#examples).
 
 
 ### Examples
