@@ -26,7 +26,6 @@ import re.notifica.geo.models.NotificareBeacon
 import re.notifica.geo.models.NotificareLocation
 import re.notifica.geo.models.NotificareRegion
 import re.notifica.geo.models.toJson
-import re.notifica.internal.NotificareLogger
 
 class NotificareGeoPlugin : CordovaPlugin(), NotificareGeo.Listener {
 
@@ -41,6 +40,8 @@ class NotificareGeoPlugin : CordovaPlugin(), NotificareGeo.Listener {
     private lateinit var permissionsLauncher: ActivityResultLauncher<Array<String>>
 
     override fun pluginInitialize() {
+        logger.hasDebugLoggingEnabled = Notificare.options?.debugLoggingEnabled ?: false
+
         Notificare.geo().addListener(this)
 
         permissionsLauncher = cordova.activity.registerForActivityResult(
@@ -171,7 +172,7 @@ class NotificareGeoPlugin : CordovaPlugin(), NotificareGeo.Listener {
         callback: CallbackContext
     ) {
         val activity = cordova.activity ?: run {
-            NotificareLogger.warning("Unable to acquire a reference to the current activity.")
+            logger.warning("Unable to acquire a reference to the current activity.")
             callback.error("Unable to acquire a reference to the current activity.")
             return
         }
@@ -191,7 +192,7 @@ class NotificareGeoPlugin : CordovaPlugin(), NotificareGeo.Listener {
         val manifestPermissions = getManifestPermissions(activity, permission)
 
         if (manifestPermissions.isEmpty()) {
-            NotificareLogger.warning("No permissions found in the manifest for $permission")
+            logger.warning("No permissions found in the manifest for $permission")
             callback.success(false)
             return
         }
@@ -202,7 +203,7 @@ class NotificareGeoPlugin : CordovaPlugin(), NotificareGeo.Listener {
 
     private fun presentPermissionRationale(@Suppress("UNUSED_PARAMETER") args: CordovaArgs, callback: CallbackContext) {
         val activity = cordova.activity ?: run {
-            NotificareLogger.warning("Unable to acquire a reference to the current activity.")
+            logger.warning("Unable to acquire a reference to the current activity.")
             callback.error("Unable to acquire a reference to the current activity.")
             return
         }
@@ -240,7 +241,7 @@ class NotificareGeoPlugin : CordovaPlugin(), NotificareGeo.Listener {
             else activity.getString(android.R.string.ok)
 
         try {
-            NotificareLogger.debug("Presenting permission rationale for '$permission'.")
+            logger.debug("Presenting permission rationale for '$permission'.")
 
             activity.runOnUiThread {
                 AlertDialog.Builder(activity)
@@ -275,7 +276,7 @@ class NotificareGeoPlugin : CordovaPlugin(), NotificareGeo.Listener {
             }
 
         if (hasOnGoingPermissionRequest) {
-            NotificareLogger.warning("A request for permissions is already running, please wait for it to finish before doing another request.")
+            logger.warning("A request for permissions is already running, please wait for it to finish before doing another request.")
             callback.error("A request for permissions is already running, please wait for it to finish before doing another request.")
             return
         }
@@ -289,7 +290,7 @@ class NotificareGeoPlugin : CordovaPlugin(), NotificareGeo.Listener {
         val manifestPermissions = getManifestPermissions(activity, permission)
 
         if (manifestPermissions.isEmpty()) {
-            NotificareLogger.warning("No permissions found in the manifest for $permission")
+            logger.warning("No permissions found in the manifest for $permission")
             callback.success(PermissionStatus.DENIED.rawValue)
             return
         }
@@ -331,7 +332,7 @@ class NotificareGeoPlugin : CordovaPlugin(), NotificareGeo.Listener {
         try {
             NotificareGeoPluginEventBroker.dispatchEvent("location_updated", location.toJson())
         } catch (e: Exception) {
-            NotificareLogger.error("Failed to emit the location_updated event.", e)
+            logger.error("Failed to emit the location_updated event.", e)
         }
     }
 
@@ -339,7 +340,7 @@ class NotificareGeoPlugin : CordovaPlugin(), NotificareGeo.Listener {
         try {
             NotificareGeoPluginEventBroker.dispatchEvent("region_entered", region.toJson())
         } catch (e: Exception) {
-            NotificareLogger.error("Failed to emit the region_entered event.", e)
+            logger.error("Failed to emit the region_entered event.", e)
         }
     }
 
@@ -347,7 +348,7 @@ class NotificareGeoPlugin : CordovaPlugin(), NotificareGeo.Listener {
         try {
             NotificareGeoPluginEventBroker.dispatchEvent("region_exited", region.toJson())
         } catch (e: Exception) {
-            NotificareLogger.error("Failed to emit the region_exited event.", e)
+            logger.error("Failed to emit the region_exited event.", e)
         }
     }
 
@@ -355,7 +356,7 @@ class NotificareGeoPlugin : CordovaPlugin(), NotificareGeo.Listener {
         try {
             NotificareGeoPluginEventBroker.dispatchEvent("beacon_entered", beacon.toJson())
         } catch (e: Exception) {
-            NotificareLogger.error("Failed to emit the beacon_entered event.", e)
+            logger.error("Failed to emit the beacon_entered event.", e)
         }
     }
 
@@ -363,7 +364,7 @@ class NotificareGeoPlugin : CordovaPlugin(), NotificareGeo.Listener {
         try {
             NotificareGeoPluginEventBroker.dispatchEvent("beacon_exited", beacon.toJson())
         } catch (e: Exception) {
-            NotificareLogger.error("Failed to emit the beacon_exited event.", e)
+            logger.error("Failed to emit the beacon_exited event.", e)
         }
     }
 
@@ -377,7 +378,7 @@ class NotificareGeoPlugin : CordovaPlugin(), NotificareGeo.Listener {
 
             NotificareGeoPluginEventBroker.dispatchEvent("beacons_ranged", payload)
         } catch (e: Exception) {
-            NotificareLogger.error("Failed to emit the beacons_ranged event.", e)
+            logger.error("Failed to emit the beacons_ranged event.", e)
         }
     }
 
@@ -421,7 +422,7 @@ class NotificareGeoPlugin : CordovaPlugin(), NotificareGeo.Listener {
 
         // If no permissions were found there's an issue and the permission is not set in the Android Manifest.
         if (manifestPermissions.isEmpty()) {
-            NotificareLogger.warning("No permissions found in the manifest for $permission")
+            logger.warning("No permissions found in the manifest for $permission")
             return PermissionStatus.DENIED
         }
 
@@ -505,7 +506,7 @@ class NotificareGeoPlugin : CordovaPlugin(), NotificareGeo.Listener {
         val manifestPermissions = getManifestPermissions(context, PermissionGroup.BLUETOOTH)
 
         if (manifestPermissions.isEmpty()) {
-            NotificareLogger.warning("Bluetooth permission missing in the manifest.")
+            logger.warning("Bluetooth permission missing in the manifest.")
             return PermissionStatus.DENIED
         }
 

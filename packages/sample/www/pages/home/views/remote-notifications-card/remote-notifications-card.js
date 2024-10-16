@@ -55,9 +55,10 @@ async function setInboxBadgeElement(badge) {
 async function updateNotificationsStatus(checkbox) {
   if (!checkbox.checked) {
     try {
+      console.log('=== Disabling Remote Notifications ===');
       await NotificarePush.disableRemoteNotifications();
 
-      console.log('=== Disabled remote notifications successfully ===');
+      console.log('=== Disabling Remote Notifications Finished ===');
       enqueueToast('Disabled remote notifications successfully.', 'success');
     } catch (e) {
       console.log('=== Error disabling remote notifications ===');
@@ -71,9 +72,10 @@ async function updateNotificationsStatus(checkbox) {
 
   try {
     if (await ensureNotificationsPermission()) {
+      console.log('=== Enabling Remote Notifications ===');
       await NotificarePush.enableRemoteNotifications();
 
-      console.log('=== Enabled remote notifications successfully ===');
+      console.log('=== Enabling Remote Notifications Finished ===');
       enqueueToast('Enabled remote notifications successfully.', 'success');
 
       return;
@@ -121,10 +123,14 @@ function ensureNotificationsPermission() {
 async function showNotificationsInfo() {
   const allowedUi = await NotificarePush.allowedUI();
   const hasRemoteNotificationsEnabled = await NotificarePush.hasRemoteNotificationsEnabled();
+  const transport = await NotificarePush.getTransport();
+  const subscription = await NotificarePush.getSubscription();
 
   navigator.notification.alert(
     `allowedUi: ${allowedUi}
-enabled: ${hasRemoteNotificationsEnabled}`, // message
+enabled: ${hasRemoteNotificationsEnabled}
+transport: ${transport}
+token: ${subscription?.token}`, // message
     function () {
       // Callback function logic
     }, // callback

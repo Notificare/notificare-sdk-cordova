@@ -53,7 +53,7 @@ extension NotificareInAppMessagingPlugin: NotificareInAppMessagingDelegate {
                 payload: try message.toJson()
             )
         } catch {
-            NotificareLogger.error("Failed to emit the message_presented event.", error: error)
+            logger.error("Failed to emit the message_presented event.", error: error)
         }
     }
 
@@ -64,7 +64,7 @@ extension NotificareInAppMessagingPlugin: NotificareInAppMessagingDelegate {
                 payload: try message.toJson()
             )
         } catch {
-            NotificareLogger.error("Failed to emit the message_finished_presenting event.", error: error)
+            logger.error("Failed to emit the message_finished_presenting event.", error: error)
         }
     }
 
@@ -75,7 +75,7 @@ extension NotificareInAppMessagingPlugin: NotificareInAppMessagingDelegate {
                 payload: try message.toJson()
             )
         } catch {
-            NotificareLogger.error("Failed to emit the message_failed_to_present event.", error: error)
+            logger.error("Failed to emit the message_failed_to_present event.", error: error)
         }
     }
 
@@ -89,7 +89,7 @@ extension NotificareInAppMessagingPlugin: NotificareInAppMessagingDelegate {
                 ]
             )
         } catch {
-            NotificareLogger.error("Failed to emit the action_executed event.", error: error)
+            logger.error("Failed to emit the action_executed event.", error: error)
         }
     }
 
@@ -109,7 +109,7 @@ extension NotificareInAppMessagingPlugin: NotificareInAppMessagingDelegate {
                 payload: payload
             )
         } catch {
-            NotificareLogger.error("Failed to emit the action_failed_to_execute event.", error: error)
+            logger.error("Failed to emit the action_failed_to_execute event.", error: error)
         }
     }
 }

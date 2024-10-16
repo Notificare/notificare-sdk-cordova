@@ -25,14 +25,8 @@ async function getDeviceData() {
 
     currentDeviceData.ID = currentDevice.id;
     currentDeviceData['User Name'] = currentDevice.userName ?? '-';
-    currentDeviceData.Registered = currentDevice.lastRegistered;
     currentDeviceData.DnD = currentDevice.dnd != null ? `${currentDevice.dnd.start} : ${currentDevice.dnd.end}` : '-';
-    currentDeviceData.Region = currentDevice.region;
-    currentDeviceData.Language = currentDevice.language;
     currentDeviceData['Preferred Language'] = preferredLanguage ?? '-';
-    currentDeviceData.Transport = currentDevice.transport;
-    currentDeviceData['OS Version'] = currentDevice.osVersion;
-    currentDeviceData['SDK Version'] = currentDevice.sdkVersion;
 
     const keys = Object.keys(currentDeviceData);
     const lastKey = keys[keys.length - 1];
@@ -117,26 +111,26 @@ async function getUserData() {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-async function registerDeviceWithUser() {
+async function updateUser() {
   try {
-    await Notificare.device().register('helder@notifica.re', 'Helder Pinhal');
+    await Notificare.device().updateUser('notificarista@notifica.re', 'Notificarista');
 
-    console.log('=== Registered device with user successfully ===');
-    enqueueToast('Registered device with user successfully.', 'success');
+    console.log('=== Updated user as Notificarista successfully ===');
+    enqueueToast('Updated user as Notificarista successfully.', 'success');
 
     await getDeviceData();
   } catch (e) {
-    console.log('=== Error registering device with user ===');
+    console.log('=== Error updating user as Notificarista ===');
     console.log(e);
 
-    enqueueToast('Error registering device with user.', 'error');
+    enqueueToast('Error updating user as Notificarista.', 'error');
   }
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-async function registerDeviceAsAnonymous() {
+async function updateUserAsAnonymous() {
   try {
-    await Notificare.device().register(null, null);
+    await Notificare.device().updateUser(null, null);
 
     console.log('=== Registered device as anonymous successfully ===');
     enqueueToast('Registered device as anonymous successfully.', 'success');
@@ -188,8 +182,8 @@ async function clearPreferredLanguage() {
 async function updateUserData() {
   try {
     await Notificare.device().updateUserData({
-      firstName: 'Helder',
-      lastName: 'Pinhal',
+      firstName: 'FirstNameExample',
+      lastName: 'LastNameExample',
     });
 
     console.log('=== Updated user data successfully ===');

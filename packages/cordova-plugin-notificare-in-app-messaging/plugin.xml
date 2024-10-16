@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin id="cordova-plugin-notificare-in-app-messaging"
-        version="3.10.0"
+        version="4.0.0"
         xmlns="http://apache.org/cordova/ns/plugins/1.0"
         xmlns:android="http://schemas.android.com/apk/res/android">
 
@@ -40,6 +40,7 @@
 
         <source-file src="src/android/NotificareInAppMessagingPlugin.kt" target-dir="app/src/main/kotlin/re/notifica/iam/cordova" />
         <source-file src="src/android/NotificareInAppMessagingPluginEventBroker.kt" target-dir="app/src/main/kotlin/re/notifica/iam/cordova" />
+        <source-file src="src/android/Logger.kt" target-dir="app/src/main/kotlin/re/notifica/iam/cordova" />
 
         <framework custom="true" src="src/android/build-extras.gradle" type="gradleReference" />
     </platform>
@@ -60,7 +61,7 @@
                 <source url="https://github.com/CocoaPods/Specs.git" />
             </config>
             <pods use-frameworks="true">
-                <pod name="Notificare/NotificareInAppMessagingKit" spec="3.10.0" />
+                <pod name="Notificare/NotificareInAppMessagingKit" spec="4.0.0" />
             </pods>
         </podspec>
     </platform>

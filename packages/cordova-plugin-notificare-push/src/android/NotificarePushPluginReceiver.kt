@@ -2,7 +2,6 @@ package re.notifica.push.cordova
 
 import android.content.Context
 import org.json.JSONObject
-import re.notifica.internal.NotificareLogger
 import re.notifica.models.NotificareNotification
 import re.notifica.push.NotificarePushIntentReceiver
 import re.notifica.push.models.NotificareNotificationDeliveryMechanism
@@ -16,13 +15,6 @@ class NotificarePushPluginReceiver : NotificarePushIntentReceiver() {
             notification: NotificareNotification,
             deliveryMechanism: NotificareNotificationDeliveryMechanism
         ) {
-            // Continue emitting the legacy event to preserve backwards compatibility.
-            try {
-                NotificarePushPluginEventBroker.dispatchEvent("notification_received", notification.toJson())
-            } catch (e: Exception) {
-                NotificareLogger.error("Failed to emit the notification_received event.", e)
-            }
-
             try {
                 val json = JSONObject()
                 json.put("notification", notification.toJson())
@@ -30,7 +22,7 @@ class NotificarePushPluginReceiver : NotificarePushIntentReceiver() {
 
                 NotificarePushPluginEventBroker.dispatchEvent("notification_info_received", json)
             } catch (e: Exception) {
-                NotificareLogger.error("Failed to emit the notification_info_received event.", e)
+                logger.error("Failed to emit the notification_info_received event.", e)
             }
         }
 
@@ -38,7 +30,7 @@ class NotificarePushPluginReceiver : NotificarePushIntentReceiver() {
         try {
             NotificarePushPluginEventBroker.dispatchEvent("system_notification_received", notification.toJson())
         } catch (e: Exception) {
-            NotificareLogger.error("Failed to emit the system_notification_received event.", e)
+            logger.error("Failed to emit the system_notification_received event.", e)
         }
     }
 
@@ -46,7 +38,7 @@ class NotificarePushPluginReceiver : NotificarePushIntentReceiver() {
         try {
             NotificarePushPluginEventBroker.dispatchEvent("unknown_notification_received", notification.toJson())
         } catch (e: Exception) {
-            NotificareLogger.error("Failed to emit the unknown_notification_received event.", e)
+            logger.error("Failed to emit the unknown_notification_received event.", e)
         }
     }
 
@@ -54,7 +46,7 @@ class NotificarePushPluginReceiver : NotificarePushIntentReceiver() {
         try {
             NotificarePushPluginEventBroker.dispatchEvent("notification_opened", notification.toJson())
         } catch (e: Exception) {
-            NotificareLogger.error("Failed to emit the notification_opened event.", e)
+            logger.error("Failed to emit the notification_opened event.", e)
         }
     }
 
@@ -70,7 +62,7 @@ class NotificarePushPluginReceiver : NotificarePushIntentReceiver() {
 
             NotificarePushPluginEventBroker.dispatchEvent("notification_action_opened", json)
         } catch (e: Exception) {
-            NotificareLogger.error("Failed to emit the notification_action_opened event.", e)
+            logger.error("Failed to emit the notification_action_opened event.", e)
         }
     }
 }

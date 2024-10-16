@@ -170,7 +170,7 @@ extension NotificareInboxPlugin: NotificareInboxDelegate {
                 payload: try items.map { try $0.toJson() }
             )
         } catch {
-            NotificareLogger.error("Failed to emit the inbox_updated event.", error: error)
+            logger.error("Failed to emit the inbox_updated event.", error: error)
         }
     }
 

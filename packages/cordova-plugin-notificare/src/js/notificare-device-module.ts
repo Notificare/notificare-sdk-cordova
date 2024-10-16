@@ -20,9 +20,18 @@ export class NotificareDeviceModule {
     });
   }
 
+  /**
+   * @deprecated Use updateUser() instead.
+   */
   public async register(userId: string | null, userName: string | null): Promise<void> {
     return new Promise((resolve, reject) => {
       cordova.exec(resolve, reject, 'Notificare', 'register', [userId, userName]);
+    });
+  }
+
+  public async updateUser(userId: string | null, userName: string | null): Promise<void> {
+    return new Promise((resolve, reject) => {
+      cordova.exec(resolve, reject, 'Notificare', 'updateUser', [userId, userName]);
     });
   }
 

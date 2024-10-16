@@ -155,6 +155,23 @@ class NotificarePushPlugin : CDVPlugin {
         self.commandDelegate!.send(result, callbackId: command.callbackId)
     }
 
+    @objc func getTransport(_ command: CDVInvokedUrlCommand) {
+        let result = CDVPluginResult(status: .ok, messageAs: Notificare.shared.push().transport?.rawValue)
+        self.commandDelegate!.send(result, callbackId: command.callbackId)
+    }
+
+    @objc func getSubscription(_ command: CDVInvokedUrlCommand) {
+        do {
+            let json = try Notificare.shared.push().subscription?.toJson()
+
+            let result = CDVPluginResult(status: .ok, messageAs: json)
+            self.commandDelegate!.send(result, callbackId: command.callbackId)
+        } catch {
+            let result = CDVPluginResult(status: .error, messageAs: error.localizedDescription)
+            self.commandDelegate!.send(result, callbackId: command.callbackId)
+        }
+    }
+
     @objc func allowedUI(_ command: CDVInvokedUrlCommand) {
         let result = CDVPluginResult(status: .ok, messageAs: Notificare.shared.push().allowedUI)
         self.commandDelegate!.send(result, callbackId: command.callbackId)
@@ -174,10 +191,16 @@ class NotificarePushPlugin : CDVPlugin {
     }
 
     @objc func disableRemoteNotifications(_ command: CDVInvokedUrlCommand) {
-        Notificare.shared.push().disableRemoteNotifications()
-
-        let result = CDVPluginResult(status: .ok)
-        self.commandDelegate!.send(result, callbackId: command.callbackId)
+        Notificare.shared.push().disableRemoteNotifications { result in
+            switch result {
+            case .success:
+                let result = CDVPluginResult(status: .ok)
+                self.commandDelegate!.send(result, callbackId: command.callbackId)
+            case let .failure(error):
+                let result = CDVPluginResult(status: .error, messageAs: error.localizedDescription)
+                self.commandDelegate!.send(result, callbackId: command.callbackId)
+            }
+        }
     }
 
     @objc func checkPermissionStatus(_ command: CDVInvokedUrlCommand) {
@@ -258,17 +281,6 @@ class NotificarePushPlugin : CDVPlugin {
 }
 
 extension NotificarePushPlugin: NotificarePushDelegate {
-    func notificare(_ notificarePush: NotificarePush, didReceiveNotification notification: NotificareNotification) {
-        do {
-            NotificarePushPluginEventBroker.dispatchEvent(
-                name: "notification_received",
-                payload: try notification.toJson()
-            )
-        } catch {
-            NotificareLogger.error("Failed to emit the notification_received event.", error: error)
-        }
-    }
-
     func notificare(_ notificarePush: NotificarePush, didReceiveNotification notification: NotificareNotification, deliveryMechanism: NotificareNotificationDeliveryMechanism) {
         do {
             let payload: [String: Any] = [
@@ -281,7 +293,7 @@ extension NotificarePushPlugin: NotificarePushDelegate {
                 payload: payload
             )
         } catch {
-            NotificareLogger.error("Failed to emit the notification_info_received event.", error: error)
+            logger.error("Failed to emit the notification_info_received event.", error: error)
         }
     }
 
@@ -292,7 +304,7 @@ extension NotificarePushPlugin: NotificarePushDelegate {
                 payload: try notification.toJson()
             )
         } catch {
-            NotificareLogger.error("Failed to emit the system_notification_received event.", error: error)
+            logger.error("Failed to emit the system_notification_received event.", error: error)
         }
     }
 
@@ -310,7 +322,7 @@ extension NotificarePushPlugin: NotificarePushDelegate {
                 payload: try notification.toJson()
             )
         } catch {
-            NotificareLogger.error("Failed to emit the notification_opened event.", error: error)
+            logger.error("Failed to emit the notification_opened event.", error: error)
         }
     }
 
@@ -341,7 +353,7 @@ extension NotificarePushPlugin: NotificarePushDelegate {
                 payload: payload
             )
         } catch {
-            NotificareLogger.error("Failed to emit the notification_action_opened event.", error: error)
+            logger.error("Failed to emit the notification_action_opened event.", error: error)
         }
     }
 
@@ -376,6 +388,17 @@ extension NotificarePushPlugin: NotificarePushDelegate {
         )
     }
 
+    func notificare(_ notificarePush: any NotificarePush, didChangeSubscription subscription: NotificarePushSubscription?) {
+        do {
+            NotificarePushPluginEventBroker.dispatchEvent(
+                name: "subscription_changed",
+                payload: try subscription?.toJson()
+            )
+        } catch {
+            logger.error("Failed to emit the subscription_changed event.", error: error)
+        }
+    }
+
     func notificare(_ notificarePush: NotificarePush, shouldOpenSettings notification: NotificareNotification?) {
         do {
             NotificarePushPluginEventBroker.dispatchEvent(
@@ -383,7 +406,7 @@ extension NotificarePushPlugin: NotificarePushDelegate {
                 payload: try notification?.toJson()
             )
         } catch {
-            NotificareLogger.error("Failed to emit the should_open_notification_settings event.", error: error)
+            logger.error("Failed to emit the should_open_notification_settings event.", error: error)
         }
     }
 

@@ -133,7 +133,7 @@ extension NotificarePushUIPlugin: NotificarePushUIDelegate {
                 payload: try notification.toJson()
             )
         } catch {
-            NotificareLogger.error("Failed to emit the notification_will_present event.", error: error)
+            logger.error("Failed to emit the notification_will_present event.", error: error)
         }
     }
 
@@ -144,7 +144,7 @@ extension NotificarePushUIPlugin: NotificarePushUIDelegate {
                 payload: try notification.toJson()
             )
         } catch {
-            NotificareLogger.error("Failed to emit the notification_presented event.", error: error)
+            logger.error("Failed to emit the notification_presented event.", error: error)
         }
     }
 
@@ -155,7 +155,7 @@ extension NotificarePushUIPlugin: NotificarePushUIDelegate {
                 payload: try notification.toJson()
             )
         } catch {
-            NotificareLogger.error("Failed to emit the notification_finished_presenting event.", error: error)
+            logger.error("Failed to emit the notification_finished_presenting event.", error: error)
         }
     }
 
@@ -166,7 +166,7 @@ extension NotificarePushUIPlugin: NotificarePushUIDelegate {
                 payload: try notification.toJson()
             )
         } catch {
-            NotificareLogger.error("Failed to emit the notification_failed_to_present event.", error: error)
+            logger.error("Failed to emit the notification_failed_to_present event.", error: error)
         }
     }
 
@@ -182,7 +182,7 @@ extension NotificarePushUIPlugin: NotificarePushUIDelegate {
                 payload: payload
             )
         } catch {
-            NotificareLogger.error("Failed to emit the notification_url_clicked event.", error: error)
+            logger.error("Failed to emit the notification_url_clicked event.", error: error)
         }
     }
 
@@ -196,7 +196,7 @@ extension NotificarePushUIPlugin: NotificarePushUIDelegate {
                 ]
             )
         } catch {
-            NotificareLogger.error("Failed to emit the action_will_execute event.", error: error)
+            logger.error("Failed to emit the action_will_execute event.", error: error)
         }
     }
 
@@ -210,7 +210,7 @@ extension NotificarePushUIPlugin: NotificarePushUIDelegate {
                 ]
             )
         } catch {
-            NotificareLogger.error("Failed to emit the action_executed event.", error: error)
+            logger.error("Failed to emit the action_executed event.", error: error)
         }
     }
 
@@ -224,7 +224,7 @@ extension NotificarePushUIPlugin: NotificarePushUIDelegate {
                 ]
             )
         } catch {
-            NotificareLogger.error("Failed to emit the action_not_executed event.", error: error)
+            logger.error("Failed to emit the action_not_executed event.", error: error)
         }
     }
 
@@ -244,7 +244,7 @@ extension NotificarePushUIPlugin: NotificarePushUIDelegate {
                 payload: payload
             )
         } catch {
-            NotificareLogger.error("Failed to emit the action_failed_to_execute event.", error: error)
+            logger.error("Failed to emit the action_failed_to_execute event.", error: error)
         }
     }
 
@@ -261,7 +261,7 @@ extension NotificarePushUIPlugin: NotificarePushUIDelegate {
                 payload: payload
             )
         } catch {
-            NotificareLogger.error("Failed to emit the custom_action_received event.", error: error)
+            logger.error("Failed to emit the custom_action_received event.", error: error)
         }
     }
 }

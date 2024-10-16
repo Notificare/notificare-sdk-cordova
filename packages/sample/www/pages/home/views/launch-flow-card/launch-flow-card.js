@@ -37,8 +37,10 @@ function handleIsReadyStatus(isReady) {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 async function launchNotificare() {
   try {
-    await NotificarePush.setPresentationOptions(['banner', 'badge', 'sound']);
+    console.log('=== Launching Notificare ===');
     await Notificare.launch();
+
+    console.log('=== Launching Notificare Finished ===');
   } catch (e) {
     console.log('=== Error launching notificare ===');
     console.log(e);
@@ -50,7 +52,10 @@ async function launchNotificare() {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 async function unlaunchNotificare() {
   try {
+    console.log('=== Unlaunching Notificare ===');
     await Notificare.unlaunch();
+
+    console.log('=== Unlaunching Notificare Finished ===');
   } catch (e) {
     console.log('=== Error unlaunching notificare ===');
     console.log(e);

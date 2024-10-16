@@ -25,8 +25,9 @@ function setupListeners() {
     console.log(`---> Device registered: ${JSON.stringify(device)}`);
   });
 
-  NotificarePush.onNotificationReceived((notification) => {
+  NotificarePush.onNotificationInfoReceived(({ notification, deliveryMechanism }) => {
     console.log(`---> Received notification = ${JSON.stringify(notification)}`);
+    console.log(`---> Delivery mechanism = ${deliveryMechanism}`);
   });
 
   NotificarePush.onUnknownNotificationReceived((notification) => {
@@ -46,6 +47,11 @@ function setupListeners() {
   NotificarePush.onNotificationSettingsChanged((granted) => {
     console.log('=== NOTIFICATION SETTINGS CHANGED ===');
     console.log(JSON.stringify(granted, null, 2));
+  });
+
+  NotificarePush.onSubscriptionChanged((subscription) => {
+    console.log('=== SUBSCRIPTION CHANGED ===');
+    console.log(JSON.stringify(subscription, null, 2));
   });
 
   NotificareInbox.onBadgeUpdated((badge) => {
@@ -158,44 +164,6 @@ function setupListeners() {
   NotificareScannables.onScannableSessionFailed((error) => {
     console.log('=== SCANNABLE SESSION FAILED ===');
     console.log(JSON.stringify(error, null, 2));
-  });
-
-  NotificareMonetize.onBillingSetupFinished(() => {
-    console.log('=== BILLING SETUP FINISHED ===');
-  });
-
-  NotificareMonetize.onBillingSetupFailed((data) => {
-    console.log('=== BILLING SETUP FAILED ===');
-    console.log(JSON.stringify(data, null, 2));
-  });
-
-  NotificareMonetize.onProductsUpdated((products) => {
-    console.log('=== PRODUCTS UPDATED ===');
-    console.log(JSON.stringify(products, null, 2));
-  });
-
-  NotificareMonetize.onPurchasesUpdated((purchases) => {
-    console.log('=== PURCHASES UPDATED ===');
-    console.log(JSON.stringify(purchases, null, 2));
-  });
-
-  NotificareMonetize.onPurchaseFinished((purchase) => {
-    console.log('=== PURCHASE FINISHED ===');
-    console.log(JSON.stringify(purchase, null, 2));
-  });
-
-  NotificareMonetize.onPurchaseRestored((purchase) => {
-    console.log('=== PURCHASE RESTORED ===');
-    console.log(JSON.stringify(purchase, null, 2));
-  });
-
-  NotificareMonetize.onPurchaseCanceled(() => {
-    console.log('=== PURCHASE CANCELED ===');
-  });
-
-  NotificareMonetize.onPurchaseFailed((data) => {
-    console.log('=== PURCHASE FAILED ===');
-    console.log(JSON.stringify(data, null, 2));
   });
 
   NotificareInAppMessaging.onMessagePresented((message) => {
