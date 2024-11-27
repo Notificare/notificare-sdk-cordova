@@ -144,7 +144,7 @@ export class NotificarePush {
   }
 
   /**
-   * Determines if the app should display a rationale for requesting the specified permission.
+   * Determines if the app should display a rationale for requesting the push permission.
    *
    * @returns `true` if a rationale should be shown, or `false` otherwise.
    */
@@ -155,7 +155,7 @@ export class NotificarePush {
   }
 
   /**
-   * Presents a rationale to the user for requesting a specific permission.
+   * Presents a rationale to the user for requesting the push permission.
    *
    * This method displays a custom rationale message to the user, explaining why the app requires
    * push permission. The rationale should be presented prior to initiating the permission
@@ -337,7 +337,7 @@ export class NotificarePush {
    *  push notifications.
    *
    * @param callback A callback that will be invoked with the result of the
-   * onFailedToRegisterForRemoteNotifications event. IT will provide the error
+   * onFailedToRegisterForRemoteNotifications event. It will provide the error
    * that caused the registration to fail.
    */
   public static onFailedToRegisterForRemoteNotifications(callback: (error: string) => void): EventSubscription {
