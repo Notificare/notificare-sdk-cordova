@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 
-const utils = require('../utils');
+const utils = require('cordova-plugin-notificare/src/hooks/utils');
 const { setupBeaconsFlag } = require('./setup-beacons-flag');
 
 module.exports = function (context) {
