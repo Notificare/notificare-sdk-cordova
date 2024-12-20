@@ -11,7 +11,7 @@ module.exports = function (context) {
     return;
   }
 
-  const isPreferenceOpedIn = utils.isPreferenceOptedIn(appConfig, 'NotificareBeaconsSupportEnabled', 'android');
+  const isPreferenceOptedIn = utils.isPreferenceOptedIn(appConfig, 'NotificareBeaconsSupportEnabled', 'android');
 
-  setupBeaconsFlag(context, isPreferenceOpedIn);
+  setupBeaconsFlag(context, isPreferenceOptedIn);
 };
