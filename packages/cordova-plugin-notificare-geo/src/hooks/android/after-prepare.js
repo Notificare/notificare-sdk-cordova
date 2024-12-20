@@ -6,12 +6,12 @@ const { setupBeaconsFlag } = require('./setup-beacons-flag');
 module.exports = function (context) {
   const appConfig = utils.getCordovaAppConfig(context);
 
-  if (!utils.isPreferenceSet(appConfig, 'NotificareIncludeBeaconsSupport', 'android')) {
+  if (!utils.isPreferenceSet(appConfig, 'NotificareBeaconsSupportEnabled', 'android')) {
     console.log(`Notificare beacons support preference is not specified, dependency will be included by default.`);
     return;
   }
 
-  const isPreferenceOpedIn = utils.isPreferenceOptedIn(appConfig, 'NotificareIncludeBeaconsSupport', 'android');
+  const isPreferenceOpedIn = utils.isPreferenceOptedIn(appConfig, 'NotificareBeaconsSupportEnabled', 'android');
 
   setupBeaconsFlag(context, isPreferenceOpedIn);
 };

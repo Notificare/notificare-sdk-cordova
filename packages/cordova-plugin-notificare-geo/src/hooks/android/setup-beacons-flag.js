@@ -11,8 +11,8 @@ function setupBeaconsFlag(context, flag) {
     encoding: 'utf-8',
   });
 
-  properties = properties.replace(/^includeBeaconsSupport.+/m, '');
-  properties += `\r\nincludeBeaconsSupport=${flag}`;
+  properties = properties.replace(/^notificareBeaconsSupportEnabled.+/m, '');
+  properties += `\r\nnotificareBeaconsSupportEnabled=${flag}`;
 
   fs.writeFileSync(projectGradlePropertiesPath, properties);
 }
