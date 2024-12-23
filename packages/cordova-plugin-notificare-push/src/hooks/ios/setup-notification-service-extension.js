@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 const xcode = require('xcode');
-const utils = require('../utils');
+const utils = require('cordova-plugin-notificare/src/hooks/utils');
 const { getDevelopmentTeam } = require('./development-team');
 const { isReleaseReference, getConfigReferences } = require('./xcode-project');
 

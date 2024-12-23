@@ -14,6 +14,8 @@
     <asset src="build/notificare-geo.bundle.js.map" target="plugins/cordova-plugin-notificare-geo/build/notificare-geo.bundle.js.map" />
 
     <platform name="android">
+        <hook type="after_prepare" src="src/hooks/android/after-prepare.js"/>
+
         <config-file target="config.xml" parent="/*">
             <preference name="AndroidXEnabled" value="true" />
 

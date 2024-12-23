@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## Upcoming release
+
+- Add JSDocs to public methods
+- Add managed approach to allow excluding beacons dependency
+
 ## 4.0.0
 
 - Device identifiers become long-lived
