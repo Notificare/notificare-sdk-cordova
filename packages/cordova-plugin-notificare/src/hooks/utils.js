@@ -26,6 +26,12 @@ function getCordovaPackageName(appConfig, platform) {
   return appConfig.packageName();
 }
 
+function isPreferenceSet(appConfig, key, platform) {
+  const preference = appConfig.getPlatformPreference(key, platform);
+
+  return !isEmptyString(preference.toString());
+}
+
 function isPreferenceOptedIn(appConfig, key, platform) {
   const preference = appConfig.getPlatformPreference(key, platform);
 
@@ -67,6 +73,7 @@ function copyResources(srcPath, destPath) {
 module.exports.getCordovaAppConfig = getCordovaAppConfig;
 module.exports.getCordovaPackageName = getCordovaPackageName;
 module.exports.isPreferenceOptedIn = isPreferenceOptedIn;
+module.exports.isPreferenceSet = isPreferenceSet;
 module.exports.isEmptyString = isEmptyString;
 module.exports.getPreferenceBoolean = getPreferenceBoolean;
 module.exports.copyResources = copyResources;

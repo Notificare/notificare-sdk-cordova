@@ -27,6 +27,8 @@
         <preference name="NotificareServicesGradlePluginVersion" value="1.0.1" />
         <preference name="AndroidLaunchMode" value="singleTask" />
 
+        <preference name="NotificareBeaconsSupportEnabled" value="true" />
+
         <allow-intent href="market:*" />
 
         <resource-file src="notificare-services.json" target="app/notificare-services.json" />
