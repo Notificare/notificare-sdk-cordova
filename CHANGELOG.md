@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## Upcoming release
+## 4.0.1
 
 - Add documentation to public methods
 - Add managed approach to allow excluding beacons dependency
