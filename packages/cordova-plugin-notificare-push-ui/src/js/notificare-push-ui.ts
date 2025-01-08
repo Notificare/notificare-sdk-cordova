@@ -8,7 +8,10 @@ export class NotificarePushUI {
    * This method launches the UI for displaying the provided
    * {@link NotificareNotification}.
    *
-   * @param notification The {@link NotificareNotification} to present.
+   * @param {NotificareNotification} notification - The {@link NotificareNotification}
+   * to present.
+   * @returns {Promise<void>} - A promise that resolves when the notification
+   * has been successfully presented to the user.
    */
   public static async presentNotification(notification: NotificareNotification): Promise<void> {
     return new Promise<void>((resolve, reject) => {
@@ -23,8 +26,12 @@ export class NotificarePushUI {
    * {@link NotificareNotificationAction} associated with the provided
    * {@link NotificareNotification}.
    *
-   * @param notification The {@link NotificareNotification} to present.
-   * @param action The {@link NotificareNotificationAction} to execute.
+   * @param {NotificareNotification} notification - The {@link NotificareNotification}
+   * to present.
+   * @param {NotificareNotificationAction} action - The {@link NotificareNotificationAction}
+   * to execute.
+   * @returns {Promise<void>} - A promise that resolves when the action has
+   * been successfully presented and executed.
    */
   public static async presentAction(
     notification: NotificareNotification,
@@ -42,9 +49,11 @@ export class NotificarePushUI {
    *
    * This method is invoked before the notification is shown to the user.
    *
-   * @param callback A callback that will be invoked with the result of the
+   * @param callback - A callback that will be invoked with the result of the
    * onNotificationWillPresent event. It will provide the
    * {@link NotificareNotification} that will be presented.
+   * @returns {EventSubscription} - The {@link EventSubscription} for the
+   * onNotificationWillPresent event.
    */
   public static onNotificationWillPresent(callback: (notification: NotificareNotification) => void): EventSubscription {
     return new EventSubscription('notification_will_present', callback);
@@ -55,9 +64,11 @@ export class NotificarePushUI {
    *
    * This method is triggered when the notification has been shown to the user.
    *
-   * @param callback A callback that will be invoked with the result of the
+   * @param callback - A callback that will be invoked with the result of the
    * onNotificationPresented event. It will provide the
    * {@link NotificareNotification} that was presented.
+   * @returns {EventSubscription} - The {@link EventSubscription} for the
+   * onNotificationPresented event.
    */
   public static onNotificationPresented(callback: (notification: NotificareNotification) => void): EventSubscription {
     return new EventSubscription('notification_presented', callback);
@@ -69,9 +80,11 @@ export class NotificarePushUI {
    * This method is invoked after the notification UI has been dismissed or the
    * notification interaction has completed.
    *
-   * @param callback A callback that will be invoked with the result of the
+   * @param callback - A callback that will be invoked with the result of the
    * onNotificationFinishedPresenting event. It will provide the
    * {@link NotificareNotification} that finished presenting.
+   * @returns {EventSubscription} - The {@link EventSubscription} for the
+   * onNotificationFinishedPresenting event.
    */
   public static onNotificationFinishedPresenting(
     callback: (notification: NotificareNotification) => void
@@ -85,9 +98,11 @@ export class NotificarePushUI {
    * This method is invoked if there is an error preventing the notification from
    * being presented.
    *
-   * @param callback A callback that will be invoked with the result of the
+   * @param callback - A callback that will be invoked with the result of the
    * onNotificationFailedToPresent event. It will provide the
    * {@link NotificareNotification} that failed to present.
+   * @returns {EventSubscription} - The {@link EventSubscription} for the
+   * onNotificationFailedToPresent event.
    */
   public static onNotificationFailedToPresent(
     callback: (notification: NotificareNotification) => void
@@ -100,9 +115,11 @@ export class NotificarePushUI {
    *
    * This method is triggered when the user clicks a URL in the notification.
    *
-   * @param callback A callback that will be invoked with the result of the
+   * @param callback - A callback that will be invoked with the result of the
    * onNotificationUrlClicked event. It will provide the string URL and the
    * {@link NotificareNotification} containing it.
+   * @returns {EventSubscription} - The {@link EventSubscription} for the
+   * onNotificationUrlClicked event.
    */
   public static onNotificationUrlClicked(
     callback: (data: { notification: NotificareNotification; url: string }) => void
@@ -116,10 +133,12 @@ export class NotificarePushUI {
    * This method is invoked right before the action associated with a notification
    * is executed.
    *
-   * @param callback A callback that will be invoked with the result of the
+   * @param callback - A callback that will be invoked with the result of the
    * onActionWillExecute event. It will provide the
    * {@link NotificareNotificationAction} that will be executed and the
    * {@link NotificareNotification} containing it.
+   * @returns {EventSubscription} - The {@link EventSubscription} for the
+   * onActionWillExecute event.
    */
   public static onActionWillExecute(
     callback: (data: { notification: NotificareNotification; action: NotificareNotificationAction }) => void
@@ -133,10 +152,12 @@ export class NotificarePushUI {
    * This method is triggered after the action associated with the notification
    * has been successfully executed.
    *
-   * @param callback A callback that will be invoked with the result of the
+   * @param callback - A callback that will be invoked with the result of the
    * onActionExecuted event. It will provide the
    * {@link NotificareNotificationAction} that was executed and the
    * {@link NotificareNotification} containing it.
+   * @returns {EventSubscription} - The {@link EventSubscription} for the
+   * onActionExecuted event.
    */
   public static onActionExecuted(
     callback: (data: { notification: NotificareNotification; action: NotificareNotificationAction }) => void
@@ -151,10 +172,12 @@ export class NotificarePushUI {
    * This method is triggered after the action associated with the notification
    * has not been executed, caused by user interaction.
    *
-   * @param callback A callback that will be invoked with the result of the
+   * @param callback - A callback that will be invoked with the result of the
    * onActionNotExecuted event. It will provide the
    * {@link NotificareNotificationAction} that was not executed and the
    * {@link NotificareNotification} containing it.
+   * @returns {EventSubscription} - The {@link EventSubscription} for the
+   * onActionNotExecuted event.
    */
   public static onActionNotExecuted(
     callback: (data: { notification: NotificareNotification; action: NotificareNotificationAction }) => void
@@ -168,11 +191,13 @@ export class NotificarePushUI {
    * This method is triggered if an error occurs while trying to execute an
    * action associated with the notification.
    *
-   * @param callback A callback that will be invoked with the result of the
+   * @param callback - A callback that will be invoked with the result of the
    * onActionFailedToExecute event. It will provide the
    * {@link NotificareNotificationAction} that was failed to execute and the
    * {@link NotificareNotification} containing it. It may also provide the error
    * that caused the failure.
+   * @returns {EventSubscription} - The {@link EventSubscription} for the
+   * onActionFailedToExecute event.
    */
   public static onActionFailedToExecute(
     callback: (data: {
@@ -190,11 +215,13 @@ export class NotificarePushUI {
    * This method is triggered when a custom action associated with the
    * notification is received, such as a deep link or custom URL scheme.
    *
-   * @param callback A callback that will be invoked with the result of the
+   * @param callback - A callback that will be invoked with the result of the
    * onCustomActionReceived event. It will provide the
    * {@link NotificareNotificationAction} that triggered the custom action and
    * the {@link NotificareNotification} containing it. It also provides the URL
    * representing the custom action.
+   * @returns {EventSubscription} - The {@link EventSubscription} for the
+   * onCustomActionReceived event.
    */
   public static onCustomActionReceived(
     callback: (data: {

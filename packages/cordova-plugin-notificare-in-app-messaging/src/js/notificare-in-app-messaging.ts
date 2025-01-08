@@ -5,9 +5,9 @@ export class NotificareInAppMessaging {
   /**
    * Indicates whether in-app messages are currently suppressed.
    *
-   * @returns `true` if message dispatching and the presentation of in-app
-   * messages are temporarily suppressed and `false` if in-app messages are
-   * allowed to be presented.
+   * @returns {Promise<boolean>} - A promise that resolves to `true` if message
+   * dispatching and the presentation of in-app messages are temporarily
+   * suppressed and `false` if in-app messages are allowed to be presented.
    */
   public static async hasMessagesSuppressed(): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
@@ -25,11 +25,13 @@ export class NotificareInAppMessaging {
    * To trigger a new context evaluation after stopping in-app message
    * suppression, set the `evaluateContext` parameter to `true`.
    *
-   * @param suppressed Set to `true` to suppress in-app messages, or `false` to
-   * stop suppressing them.
-   * @param evaluateContext Set to `true` to re-evaluate the foreground context
-   * when stopping in-app message
+   * @param {boolean} suppressed - Set to `true` to suppress in-app messages, or
+   * `false` to stop suppressing them.
+   * @param {boolean} evaluateContext - Set to `true` to re-evaluate the foreground
+   * context when stopping in-app message
    * suppression.
+   * @returns {Promise<void>} - A promise that resolves when the message suppression
+   * state has been successfully set.
    */
   public static async setMessagesSuppressed(suppressed: boolean, evaluateContext?: boolean): Promise<void> {
     return new Promise<void>((resolve, reject) => {
@@ -42,9 +44,11 @@ export class NotificareInAppMessaging {
   /**
    * Called when an in-app message is successfully presented to the user.
    *
-   * @param callback A callback that will be invoked with the result of the
+   * @param callback - A callback that will be invoked with the result of the
    * onMessagePresented event. It will provide the {@link NotificareInAppMessage}
    * that was presented.
+   * @returns {EventSubscription} - The {@link EventSubscription} for the onMessagePresented
+   * event.
    */
   public static onMessagePresented(callback: (message: NotificareInAppMessage) => void): EventSubscription {
     return new EventSubscription('message_presented', callback);
@@ -55,9 +59,11 @@ export class NotificareInAppMessaging {
    *
    * This method is invoked after the message is no longer visible to the user.
    *
-   * @param callback A callback that will be invoked with the result of the
+   * @param callback - A callback that will be invoked with the result of the
    * onMessageFinishedPresenting event. It will provide the
    * {@link NotificareInAppMessage} that finished presenting.
+   * @returns {EventSubscription} - The {@link EventSubscription} for the onMessageFinishedPresenting
+   * event.
    */
   public static onMessageFinishedPresenting(callback: (message: NotificareInAppMessage) => void): EventSubscription {
     return new EventSubscription('message_finished_presenting', callback);
@@ -66,9 +72,11 @@ export class NotificareInAppMessaging {
   /**
    * Called when an in-app message failed to present.
    *
-   * @param callback A callback that will be invoked with the result of the
+   * @param callback - A callback that will be invoked with the result of the
    * onMessageFailedToPresent event. It will provide the
    * {@link NotificareInAppMessage} that failed to present.
+   * @returns {EventSubscription} - The {@link EventSubscription} for the onMessageFailedToPresent
+   * event.
    */
   public static onMessageFailedToPresent(callback: (message: NotificareInAppMessage) => void): EventSubscription {
     return new EventSubscription('message_failed_to_present', callback);
@@ -77,10 +85,12 @@ export class NotificareInAppMessaging {
   /**
    * Called when an action is successfully executed for an in-app message.
    *
-   * @param callback A callback that will be invoked with the result of the
+   * @param callback - A callback that will be invoked with the result of the
    * onActionExecuted event. It will provide the
    * {@link NotificareInAppMessageAction} that was executed and the
    * {@link NotificareInAppMessage} for which the action was executed.
+   * @returns {EventSubscription} - The {@link EventSubscription} for the onActionExecuted
+   * event.
    */
   public static onActionExecuted(
     callback: (data: { message: NotificareInAppMessage; action: NotificareInAppMessageAction }) => void
@@ -94,10 +104,12 @@ export class NotificareInAppMessaging {
    * This method is triggered when an error occurs while attempting to execute
    * an action.
    *
-   * @param callback A callback that will be invoked with the result of the
+   * @param callback - A callback that will be invoked with the result of the
    * onActionFailedToExecuted event. It will provide the
    * {@link NotificareInAppMessageAction} that failed to execute and the
    * {@link NotificareInAppMessage} for which the action was attempted.
+   * @returns {EventSubscription} - The {@link EventSubscription} for the onActionFailedToExecute
+   * event.
    */
   public static onActionFailedToExecute(
     callback: (data: { message: NotificareInAppMessage; action: NotificareInAppMessageAction; error?: string }) => void

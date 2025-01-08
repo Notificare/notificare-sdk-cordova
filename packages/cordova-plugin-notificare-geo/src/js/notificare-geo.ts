@@ -10,8 +10,8 @@ export class NotificareGeo {
   /**
    * Indicates whether location services are enabled.
    *
-   * @returns `true` if the location services are enabled by the application,
-   * and `false` otherwise.
+   * @returns {Promise<boolean>} - A promise that resolves to `true` if the
+   * location services are enabled by the application, and `false` otherwise.
    */
   public static async hasLocationServicesEnabled(): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
@@ -22,8 +22,8 @@ export class NotificareGeo {
   /**
    * Indicates whether Bluetooth is enabled.
    *
-   * @returns `true` if Bluetooth is enabled and available for beacon detection
-   * and ranging, and `false` otherwise.
+   * @returns {Promise<boolean>} - A promise that resolves to `true` if Bluetooth
+   * is enabled and available for beacon detection and ranging, and `false` otherwise.
    */
   public static async hasBluetoothEnabled(): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
@@ -34,8 +34,9 @@ export class NotificareGeo {
   /**
    * Provides a list of regions currently being monitored.
    *
-   * @returns a list of {@link NotificareRegion} objects representing the
-   * geographical regions being actively monitored for entry and exit events.
+   * @returns {Promise<NotificareRegion[]>} - A promise that resolves to  a list
+   * of {@link NotificareRegion} objects representing the geographical regions
+   * being actively monitored for entry and exit events.
    */
   public static async getMonitoredRegions(): Promise<NotificareRegion[]> {
     return new Promise<NotificareRegion[]>((resolve, reject) => {
@@ -46,8 +47,9 @@ export class NotificareGeo {
   /**
    * Provides a list of regions the user has entered.
    *
-   * @returns a list of {@link NotificareRegion} objects representing the regions
-   * that the user has entered and not yet exited.
+   * @returns {Promise<NotificareRegion[]>} - A promise that resolves to a list
+   * of {@link NotificareRegion} objects representing the regions that the user
+   * has entered and not yet exited.
    */
   public static async getEnteredRegions(): Promise<NotificareRegion[]> {
     return new Promise<NotificareRegion[]>((resolve, reject) => {
@@ -72,6 +74,9 @@ export class NotificareGeo {
    * - **Always permission granted**: Enables geofencing capabilities.
    * - **Always + Bluetooth permissions granted**: Enables geofencing
    * and beacon detection.
+   *
+   * @returns {Promise<void>} - A promise that resolves when location updates
+   * have been successfully enabled.
    */
   public static async enableLocationUpdates(): Promise<void> {
     return new Promise<void>((resolve, reject) => {
@@ -82,7 +87,11 @@ export class NotificareGeo {
   /**
    * Disables location updates.
    *
-   * This method stops receiving location updates, monitoring regions, and detecting nearby beacons.
+   * This method stops receiving location updates, monitoring regions, and
+   * detecting nearby beacons.
+   *
+   * @returns {Promise<void>} - A promise that resolves when location updates
+   * have been successfully disabled.
    */
   public static async disableLocationUpdates(): Promise<void> {
     return new Promise<void>((resolve, reject) => {
@@ -97,9 +106,10 @@ export class NotificareGeo {
   /**
    * Checks the current status of a specific permission.
    *
-   * @param permission The {@link PermissionGroup} to check the status for.
-   *
-   * @returns A {@link PermissionStatus} enum containing the given permission status.
+   * @param {PermissionGroup} permission - The {@link PermissionGroup} to
+   * check the status for.
+   * @returns {Promise<PermissionStatus>} - A promise that resolves to a
+   * {@link PermissionStatus} enum containing the given permission status.
    */
   public static async checkPermissionStatus(permission: PermissionGroup): Promise<PermissionStatus> {
     return new Promise<PermissionStatus>((resolve, reject) => {
@@ -110,9 +120,10 @@ export class NotificareGeo {
   /**
    * Determines if the app should display a rationale for requesting the specified permission.
    *
-   * @param permission The {@link PermissionGroup} to evaluate if a permission rationale is needed.
-   *
-   * @returns `true` if a rationale should be shown, or `false` otherwise.
+   * @param {PermissionGroup} permission - The {@link PermissionGroup} to evaluate
+   * if a permission rationale is needed.
+   * @returns {Promise<boolean>} - A promise that resolves to `true` if a rationale
+   * should be shown, or `false` otherwise.
    */
   public static async shouldShowPermissionRationale(permission: PermissionGroup): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
@@ -127,8 +138,11 @@ export class NotificareGeo {
    * the specified permission. The rationale should be presented prior to initiating the permission
    * request if a rationale is deemed necessary.
    *
-   * @param permission - The {@link PermissionGroup} being requested.
-   * @param rationale - The {@link PermissionRationale} details, including the title and message to present to the user.
+   * @param {PermissionGroup} permission - The {@link PermissionGroup} being requested.
+   * @param {PermissionRationale }rationale - The {@link PermissionRationale} details,
+   * including the title and message to present to the user.
+   * @returns {Promise<void>} - A promise that resolves once the rationale has been
+   * successfully presented to the user.
    */
   public static async presentPermissionRationale(
     permission: PermissionGroup,
@@ -146,9 +160,9 @@ export class NotificareGeo {
    * indicates the result of the user's decision, which can be one of several states such as
    * "granted", "denied", "restricted", or "permanently_denied".
    *
-   * @param permission - The {@link PermissionGroup} being requested.
-   *
-   * @returns A {@link PermissionStatus} enum containing the requested permission status.
+   * @param {PermissionGroup} permission - The {@link PermissionGroup} being requested.
+   * @returns {Promise<PermissionStatus>} - A promise that resolves to a {@link PermissionStatus}
+   * enum containing the requested permission status.
    */
   public static async requestPermission(permission: PermissionGroup): Promise<PermissionStatus> {
     return new Promise<PermissionStatus>((resolve, reject) => {
@@ -158,6 +172,9 @@ export class NotificareGeo {
 
   /**
    *  Opens the application's settings page.
+   *
+   *  @returns {Promise<void>} - A promise that resolves when the application
+   *  settings page has been successfully opened.
    */
   public static async openAppSettings(): Promise<void> {
     return new Promise<void>((resolve, reject) => {
@@ -170,9 +187,11 @@ export class NotificareGeo {
   /**
    * Called when a new location update is received.
    *
-   * @param callback A callback that will be invoked with the result of the
+   * @param callback - A callback that will be invoked with the result of the
    * onLocationUpdated event. It will provide the updated {@link NotificareLocation}
    * object representing the user's new location.
+   * @returns {EventSubscription} - The {@link EventSubscription} for the onLocationUpdated
+   * event.
    */
   public static onLocationUpdated(callback: (location: NotificareLocation) => void): EventSubscription {
     return new EventSubscription('location_updated', callback);
@@ -181,9 +200,11 @@ export class NotificareGeo {
   /**
    * Called when the user enters a monitored region.
    *
-   * @param callback A callback that will be invoked with the result of the
+   * @param callback - A callback that will be invoked with the result of the
    * onRegionEntered event. It will provide the {@link NotificareRegion}
    * representing the region the user has entered.
+   * @returns {EventSubscription} - The {@link EventSubscription} for the onRegionEntered
+   * event.
    */
   public static onRegionEntered(callback: (region: NotificareRegion) => void): EventSubscription {
     return new EventSubscription('region_entered', callback);
@@ -192,9 +213,11 @@ export class NotificareGeo {
   /**
    * Called when the user exits a monitored region.
    *
-   * @param callback A callback that will be invoked with the result of the
+   * @param callback - A callback that will be invoked with the result of the
    * onRegionExited event. It will provide the {@link NotificareRegion}
    * representing the region the user has exited.
+   * @returns {EventSubscription} - The {@link EventSubscription} for the onRegionExited
+   * event.
    */
   public static onRegionExited(callback: (region: NotificareRegion) => void): EventSubscription {
     return new EventSubscription('region_exited', callback);
@@ -203,9 +226,11 @@ export class NotificareGeo {
   /**
    * Called when the user enters the proximity of a beacon.
    *
-   * @param callback A callback that will be invoked with the result of the
+   * @param callback - A callback that will be invoked with the result of the
    * onBeaconEntered event. It will provide the {@link NotificareBeacon}
    * representing the beacon the user has entered the proximity of.
+   * @returns {EventSubscription} - The {@link EventSubscription} for the onBeaconEntered
+   * event.
    */
   public static onBeaconEntered(callback: (beacon: NotificareBeacon) => void): EventSubscription {
     return new EventSubscription('beacon_entered', callback);
@@ -214,9 +239,11 @@ export class NotificareGeo {
   /**
    * Called when the user exits the proximity of a beacon.
    *
-   * @param callback A callback that will be invoked with the result of the
+   * @param callback - A callback that will be invoked with the result of the
    * onBeaconExited event. It will provide the {@link NotificareBeacon}
    * representing the beacon the user has exited the proximity of.
+   * @returns {EventSubscription} - The {@link EventSubscription} for the onBeaconExited
+   * event.
    */
   public static onBeaconExited(callback: (beacon: NotificareBeacon) => void): EventSubscription {
     return new EventSubscription('beacon_exited', callback);
@@ -228,9 +255,11 @@ export class NotificareGeo {
    * This method provides the list of beacons currently detected within the given
    * region.
    *
-   * @param callback A callback that will be invoked with the result of the
+   * @param callback - A callback that will be invoked with the result of the
    * onBeaconsRanged event. It will provide a list of {@link NotificareBeacon}
    * that were detected and the {@link NotificareRegion} where they were detected.
+   * @returns {EventSubscription} - The {@link EventSubscription} for the onBeaconsRanged
+   * event.
    */
   public static onBeaconsRanged(
     callback: (data: { region: NotificareRegion; beacons: NotificareBeacon[] }) => void
@@ -243,9 +272,11 @@ export class NotificareGeo {
    *
    * **Note**: This method is only supported on iOS.
    *
-   * @param callback A callback that will be invoked with the result of the
+   * @param callback - A callback that will be invoked with the result of the
    * onVisit event. It will provide a {@link NotificareVisit} object representing
    * the details of the visit.
+   * @returns {EventSubscription} - The {@link EventSubscription} for the onVisit
+   * event.
    */
   public static onVisit(callback: (visit: NotificareVisit) => void): EventSubscription {
     return new EventSubscription('visit', callback);
@@ -256,9 +287,11 @@ export class NotificareGeo {
    *
    * **Note**: This method is only supported on iOS.
    *
-   * @param callback A callback that will be invoked with the result of the
+   * @param callback - A callback that will be invoked with the result of the
    * onHeadingUpdated event. It will provide a {@link NotificareHeading} object
    * containing the details of the updated heading.
+   * @returns {EventSubscription} - The {@link EventSubscription} for the onHeadingUpdated
+   * event.
    */
   public static onHeadingUpdated(callback: (heading: NotificareHeading) => void): EventSubscription {
     return new EventSubscription('heading_updated', callback);
