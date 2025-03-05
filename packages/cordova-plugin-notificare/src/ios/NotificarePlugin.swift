@@ -408,7 +408,7 @@ class NotificarePlugin : CDVPlugin {
     }
 
     @objc func updateUserData(_ command: CDVInvokedUrlCommand) {
-        let userData = command.argument(at: 0) as! [String: String]
+        let userData = command.argument(at: 0) as! [String: String?]
 
         Notificare.shared.device().updateUserData(userData) { result in
             switch result {
