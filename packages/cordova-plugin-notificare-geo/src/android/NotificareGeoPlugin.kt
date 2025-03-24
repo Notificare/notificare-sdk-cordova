@@ -25,7 +25,6 @@ import re.notifica.geo.ktx.geo
 import re.notifica.geo.models.NotificareBeacon
 import re.notifica.geo.models.NotificareLocation
 import re.notifica.geo.models.NotificareRegion
-import re.notifica.geo.models.toJson
 
 class NotificareGeoPlugin : CordovaPlugin(), NotificareGeo.Listener {
 
@@ -490,9 +489,11 @@ class NotificareGeoPlugin : CordovaPlugin(), NotificareGeo.Listener {
                 return false
             }
 
-            for (r in info.requestedPermissions) {
-                if (r == permission) {
-                    return true
+            info.requestedPermissions?.let {
+                for (r in it) {
+                    if (r == permission) {
+                        return true
+                    }
                 }
             }
         } catch (ex: Exception) {

@@ -198,6 +198,26 @@ async function updateUserData() {
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+async function resetUserData() {
+  try {
+    await Notificare.device().updateUserData({
+      firstName: null,
+      lastName: 'LastNameExample',
+    });
+
+    console.log('=== Reset user data successfully ===');
+    enqueueToast('Reset user data successfully.', 'success');
+
+    await getUserData();
+  } catch (e) {
+    console.log('=== Error resetting user data ===');
+    console.log(e);
+
+    enqueueToast('Error resetting user data.', 'error');
+  }
+}
+
 function handleBackButton() {
   window.location.replace('../home/home.html');
 }
