@@ -430,7 +430,7 @@ class NotificarePlugin : CordovaPlugin() {
     }
 
     private fun updateUserData(@Suppress("UNUSED_PARAMETER") args: CordovaArgs, callback: CallbackContext) {
-        val userData = mutableMapOf<String, String>()
+        val userData = mutableMapOf<String, String?>()
 
         try {
             val json = args.getJSONObject(0)
@@ -438,9 +438,7 @@ class NotificarePlugin : CordovaPlugin() {
 
             while (iterator.hasNext()) {
                 val key = iterator.next()
-                if (!json.isNull(key)) {
-                    userData[key] = json.getString(key)
-                }
+                userData[key] = if (json.isNull(key)) null else json.getString(key)
             }
         } catch (e: Exception) {
             callback.error(e.message)
