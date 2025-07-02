@@ -61,7 +61,7 @@
                 <source url="https://github.com/CocoaPods/Specs.git" />
             </config>
             <pods use-frameworks="true">
-                <pod name="Notificare/NotificareInAppMessagingKit" spec="4.2.1" />
+                <pod name="Notificare/NotificareInAppMessagingKit" spec="4.2.2" />
             </pods>
         </podspec>
     </platform>
