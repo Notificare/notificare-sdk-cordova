@@ -60,7 +60,7 @@
                 <source url="https://github.com/CocoaPods/Specs.git" />
             </config>
             <pods use-frameworks="true">
-                <pod name="Notificare/NotificareGeoKit" spec="4.2.3" />
+                <pod name="Notificare/NotificareGeoKit" spec="4.2.4" />
             </pods>
         </podspec>
     </platform>
