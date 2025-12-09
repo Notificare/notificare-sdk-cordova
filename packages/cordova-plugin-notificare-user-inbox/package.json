@@ -1,6 +1,6 @@
 {
   "name": "cordova-plugin-notificare-user-inbox",
-  "version": "4.2.4",
+  "version": "4.2.5",
   "description": "Notificare User Inbox Cordova Plugin.",
   "author": "Notificare <info@notifica.re> (https://notificare.com)",
   "license": "MIT",
@@ -40,10 +40,10 @@
     "docs:replace-symbolic-links": "rm README.md CHANGELOG.md MIGRATION.md; cp ../../README.md ../../CHANGELOG.md ../../MIGRATION.md ."
   },
   "peerDependencies": {
-    "cordova-plugin-notificare": "4.2.4"
+    "cordova-plugin-notificare": "4.2.5"
   },
   "devDependencies": {
-    "cordova-plugin-notificare": "4.2.4"
+    "cordova-plugin-notificare": "4.2.5"
   },
   "cordova": {
     "id": "cordova-plugin-notificare-user-inbox",
